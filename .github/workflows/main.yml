@@ -16,7 +16,7 @@ jobs:
       - name: Build mastodon image
         run: |
           docker login -u ${{secrets.REGISTORY_USER}} -p ${{secrets.REGISTORY_PASS}}
-          docker build . -f Dockerfile.slim -t ${{secrets.REGISTORY_PATH}}/mastodon:latest
+          docker build . -f Dockerfile -t ${{secrets.REGISTORY_PATH}}/mastodon:latest
           docker tag ${{secrets.REGISTORY_PATH}}/mastodon:latest ${{secrets.REGISTORY_PATH}}/mastodon:$(echo ${GITHUB_SHA}|head -c9)
       - name: Upload image
         run: |
