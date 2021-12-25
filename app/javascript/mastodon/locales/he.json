@@ -1,6 +1,5 @@
 {
   "account.badges.cat": "Cat",
-  "account.add_account_note": "Add note for @{name}",
   "account.account_note_header": "ההודעה שלך ל@{name}",
   "account.add_or_remove_from_list": "הוסף או הסר מהרשימות",
   "account.badges.bot": "בוט",
