@@ -10,16 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: Build mastodon image
-        run: |
-          docker login -u ${{secrets.REGISTORY_USER}} -p ${{secrets.REGISTORY_PASS}}
-          docker build . -f Dockerfile -t ${{secrets.REGISTORY_PATH}}/mastodon:latest
-          docker tag ${{secrets.REGISTORY_PATH}}/mastodon:latest ${{secrets.REGISTORY_PATH}}/mastodon:$(echo ${GITHUB_SHA}|head -c9)
-      - name: Upload image
-        run: |
-          docker login -u ${{secrets.REGISTORY_USER}} -p ${{secrets.REGISTORY_PASS}}
-          docker push ${{secrets.REGISTORY_PATH}}/mastodon:latest
-          docker push ${{secrets.REGISTORY_PATH}}/mastodon:$(echo ${GITHUB_SHA}|head -c9)
+      - uses: docker/setup-buildx-action@v1
+      - uses: docker/login-action@v1
+        with:
+          username: ${{secrets.REGISTORY_USER}}
+          password: ${{secrets.REGISTORY_PASS}}
+      - uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=registry,ref=${{secrets.REGSTORY_PATH}}/mastodon:latest
+          cache-to: type=inline
       - name: Slack Notification
         uses: homoluctus/slatify@master
         if: always()
