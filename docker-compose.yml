@@ -44,7 +44,7 @@ services:
 #        hard: -1
 
   web:
-    image: projectmyosotis/mastodon:{Image_tag}
+    image: projectmyosotis/mastodon:latest
     restart: always
     env_file: .env.production
     command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"
@@ -63,7 +63,7 @@ services:
       - ./public/system:/mastodon/public/system
 
   streaming:
-    image: projectmyosotis/mastodon:{Image_tag}
+    image: projectmyosotis/mastodon:latest
     restart: always
     env_file: .env.production
     command: node ./streaming
@@ -79,7 +79,7 @@ services:
       - redis
 
   sidekiq:
-    image: projectmyosotis/mastodon:{Image_tag}
+    image: projectmyosotis/mastodon:latest
     restart: always
     env_file: .env.production
     command: bundle exec sidekiq -c 80
