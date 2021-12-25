@@ -9,9 +9,6 @@ jobs:
     name: Pre-Compile Assets
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-ruby@v1
-        with:
-          ruby-version: '2.6.x'
       - uses: actions/checkout@master
       - name: Build mastodon image
         run: |
