@@ -20,7 +20,7 @@ jobs:
           context: .
           push: true
           tags: projectmyosotis/mastodon:latest
-          cache-from: type=registry,ref=${{secrets.REGSTORY_PATH}}/mastodon:latest
+          cache-from: type=registry,ref=projectmyosotis/mastodon:latest
           cache-to: type=inline
       - name: Slack Notification
         uses: homoluctus/slatify@master
