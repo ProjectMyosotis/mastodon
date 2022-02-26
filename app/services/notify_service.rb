@@ -46,6 +46,10 @@ class NotifyService < BaseService
     false
   end
 
+  def blocked_update?
+    false
+  end
+
   def following_sender?
     return @following_sender if defined?(@following_sender)
     @following_sender = @recipient.following?(@notification.from_account) || @recipient.requested?(@notification.from_account)
@@ -67,7 +71,7 @@ class NotifyService < BaseService
     message? && @notification.target_status.direct_visibility?
   end
 
-  # Returns true if the sender has been mentionned by the recipient up the thread
+  # Returns true if the sender has been mentioned by the recipient up the thread
   def response_to_recipient?
     return false if @notification.target_status.in_reply_to_id.nil?
 
