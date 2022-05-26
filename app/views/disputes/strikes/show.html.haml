@@ -3,8 +3,8 @@
 
 - content_for :heading_actions do
   - if @appeal.persisted?
-    = link_to t('admin.accounts.approve'), approve_admin_disputes_appeal_path(@appeal), method: :post, class: 'button' if can?(:approve, @appeal)
-    = link_to t('admin.accounts.reject'), reject_admin_disputes_appeal_path(@appeal), method: :post, class: 'button button--destructive' if can?(:reject, @appeal)
+    = link_to t('disputes.strikes.approve_appeal'), approve_admin_disputes_appeal_path(@appeal), method: :post, class: 'button' if can?(:approve, @appeal)
+    = link_to t('disputes.strikes.reject_appeal'), reject_admin_disputes_appeal_path(@appeal), method: :post, class: 'button button--destructive' if can?(:reject, @appeal)
 
 - if @strike.overruled?
   %p.hint
@@ -26,7 +26,7 @@
         %p= t "user_mailer.warning.explanation.#{@strike.action}", instance: Rails.configuration.x.local_domain
 
       - unless @strike.text.blank?
-        = Formatter.instance.linkify(@strike.text)
+        = linkify(@strike.text)
 
       - if @strike.report && !@strike.report.other?
         %p
@@ -53,7 +53,7 @@
                   = link_to short_account_status_url(@strike.target_account, status_id), class: 'emojify' do
                     = one_line_preview(status)
 
-                    - status.media_attachments.each do |media_attachment|
+                    - status.ordered_media_attachments.each do |media_attachment|
                       %abbr{ title: media_attachment.description }
                         = fa_icon 'link'
                         = media_attachment.file_file_name
