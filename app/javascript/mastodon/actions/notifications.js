@@ -45,7 +45,7 @@ defineMessages({
 });
 
 const fetchRelatedRelationships = (dispatch, notifications) => {
-  const accountIds = notifications.filter(item => item.type === 'follow').map(item => item.account.id);
+  const accountIds = notifications.filter(item => ['follow', 'follow_request', 'admin.sign_up'].indexOf(item.type) !== -1).map(item => item.account.id);
 
   if (accountIds.length > 0) {
     dispatch(fetchRelationships(accountIds));
@@ -58,7 +58,8 @@ export const loadPending = () => ({
 
 export function updateNotifications(notification, intlMessages, intlLocale) {
   return (dispatch, getState) => {
-    const showInColumn = getState().getIn(['settings', 'notifications', 'shows', notification.type], true);
+    const activeFilter = getState().getIn(['settings', 'notifications', 'quickFilter', 'active']);
+    const showInColumn = activeFilter === 'all' ? getState().getIn(['settings', 'notifications', 'shows', notification.type], true) : activeFilter === notification.type;
     const showAlert    = getState().getIn(['settings', 'notifications', 'alerts', notification.type], true);
     const playSound    = getState().getIn(['settings', 'notifications', 'sounds', notification.type], true);
     const filters      = getFiltersRegex(getState(), { contextType: 'notifications' });
@@ -132,6 +133,7 @@ const excludeTypesFromFilter = filter => {
     'poll',
     'status',
     'update',
+    'admin.sign_up',
   ]);
 
   return allTypes.filterNot(item => item === filter).toJS();
