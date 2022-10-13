@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { makeGetAccount } from '../../../selectors';
+import { makeGetAccount, getAccountHidden } from '../../../selectors';
 import Header from '../components/header';
 import {
   followAccount,
@@ -33,6 +33,7 @@ const makeMapStateToProps = () => {
   const mapStateToProps = (state, { accountId }) => ({
     account: getAccount(state, accountId),
     domain: state.getIn(['meta', 'domain']),
+    hidden: getAccountHidden(state, accountId),
   });
 
   return mapStateToProps;
@@ -54,6 +55,14 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     } else {
       dispatch(followAccount(account.get('id')));
     }
+  },
+
+  onInteractionModal (account) {
+    dispatch(openModal('INTERACTION', {
+      type: 'follow',
+      accountId: account.get('id'),
+      url: account.get('url'),
+    }));
   },
 
   onBlock (account) {
@@ -120,8 +129,14 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     dispatch(unblockDomain(domain));
   },
 
-  onAddToList(account){
+  onAddToList (account) {
     dispatch(openModal('LIST_ADDER', {
+      accountId: account.get('id'),
+    }));
+  },
+
+  onChangeLanguages (account) {
+    dispatch(openModal('SUBSCRIBED_LANGUAGES', {
       accountId: account.get('id'),
     }));
   },

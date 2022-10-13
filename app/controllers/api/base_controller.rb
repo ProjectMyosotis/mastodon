@@ -5,16 +5,16 @@ class Api::BaseController < ApplicationController
   DEFAULT_ACCOUNTS_LIMIT = 40
 
   include RateLimitHeaders
+  include AccessTokenTrackingConcern
 
   skip_before_action :store_current_location
   skip_before_action :require_functional!, unless: :whitelist_mode?
 
   before_action :require_authenticated_user!, if: :disallow_unauthenticated_api_access?
+  before_action :require_not_suspended!
   before_action :set_cache_headers
 
   protect_from_forgery with: :null_session
-
-  skip_around_action :set_locale
 
   rescue_from ActiveRecord::RecordInvalid, Mastodon::ValidationError do |e|
     render json: { error: e.to_s }, status: 422
@@ -98,6 +98,10 @@ class Api::BaseController < ApplicationController
     render json: { error: 'This method requires an authenticated user' }, status: 401 unless current_user
   end
 
+  def require_not_suspended!
+    render json: { error: 'Your login is currently disabled' }, status: 403 if current_user&.account&.suspended?
+  end
+
   def require_user!
     if !current_user
       render json: { error: 'This method requires an authenticated user' }, status: 422
@@ -126,5 +130,11 @@ class Api::BaseController < ApplicationController
 
   def disallow_unauthenticated_api_access?
     authorized_fetch_mode?
+  end
+
+  private
+
+  def respond_with_error(code)
+    render json: { error: Rack::Utils::HTTP_STATUS_CODES[code] }, status: code
   end
 end

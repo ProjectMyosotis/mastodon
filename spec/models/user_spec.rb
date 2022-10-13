@@ -56,14 +56,6 @@ RSpec.describe User, type: :model do
       end
     end
 
-    describe 'admins' do
-      it 'returns an array of users who are admin' do
-        user_1 = Fabricate(:user, admin: false)
-        user_2 = Fabricate(:user, admin: true)
-        expect(User.admins).to match_array([user_2])
-      end
-    end
-
     describe 'confirmed' do
       it 'returns an array of users who are confirmed' do
         user_1 = Fabricate(:user, confirmed_at: nil)
@@ -87,6 +79,19 @@ RSpec.describe User, type: :model do
         Fabricate(:user, email: 'unspecified@spec')
 
         expect(User.matches_email('specified')).to match_array([specified])
+      end
+    end
+
+    describe 'matches_ip' do
+      it 'returns a relation of users whose ip address is matching with the given CIDR' do
+        user1 = Fabricate(:user)
+        user2 = Fabricate(:user)
+        Fabricate(:session_activation, user: user1, ip: '2160:2160::22', session_id: '1')
+        Fabricate(:session_activation, user: user1, ip: '2160:2160::23', session_id: '2')
+        Fabricate(:session_activation, user: user2, ip: '2160:8888::24', session_id: '3')
+        Fabricate(:session_activation, user: user2, ip: '2160:8888::25', session_id: '4')
+
+        expect(User.matches_ip('2160:2160::/32')).to match_array([user1])
       end
     end
   end
@@ -194,12 +199,12 @@ RSpec.describe User, type: :model do
     end
 
     it "returns 'private' if user has not configured default privacy setting and account is locked" do
-      user = Fabricate(:user, account: Fabricate(:account, locked: true))
+      user = Fabricate(:account, locked: true).user
       expect(user.setting_default_privacy).to eq 'private'
     end
 
     it "returns 'public' if user has not configured default privacy setting and account is not locked" do
-      user = Fabricate(:user, account: Fabricate(:account, locked: false))
+      user = Fabricate(:account, locked: false).user
       expect(user.setting_default_privacy).to eq 'public'
     end
   end
@@ -248,7 +253,7 @@ RSpec.describe User, type: :model do
 
   it_behaves_like 'Settings-extended' do
     def create!
-      User.create!(account: Fabricate(:account), email: 'foo@mastodon.space', password: 'abcd1234', agreement: true)
+      User.create!(account: Fabricate(:account, user: nil), email: 'foo@mastodon.space', password: 'abcd1234', agreement: true)
     end
 
     def fabricate
@@ -273,49 +278,6 @@ RSpec.describe User, type: :model do
       app.update!(owner: nil)
 
       expect(user.token_for_app(app)).to be_nil
-    end
-  end
-
-  describe '#role' do
-    it 'returns admin for admin' do
-      user = User.new(admin: true)
-      expect(user.role).to eq 'admin'
-    end
-
-    it 'returns moderator for moderator' do
-      user = User.new(moderator: true)
-      expect(user.role).to eq 'moderator'
-    end
-
-    it 'returns user otherwise' do
-      user = User.new
-      expect(user.role).to eq 'user'
-    end
-  end
-
-  describe '#role?' do
-    it 'returns false when invalid role requested' do
-      user = User.new(admin: true)
-      expect(user.role?('disabled')).to be false
-    end
-
-    it 'returns true when exact role match' do
-      user  = User.new
-      mod   = User.new(moderator: true)
-      admin = User.new(admin: true)
-
-      expect(user.role?('user')).to be true
-      expect(mod.role?('moderator')).to be true
-      expect(admin.role?('admin')).to be true
-    end
-
-    it 'returns true when role higher than needed' do
-      mod   = User.new(moderator: true)
-      admin = User.new(admin: true)
-
-      expect(mod.role?('user')).to be true
-      expect(admin.role?('user')).to be true
-      expect(admin.role?('moderator')).to be true
     end
   end
 
@@ -407,110 +369,6 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#promote!' do
-    subject(:user) { Fabricate(:user, admin: is_admin, moderator: is_moderator) }
-
-    before do
-      user.promote!
-    end
-
-    context 'when user is an admin' do
-      let(:is_admin) { true }
-
-      context 'when user is a moderator' do
-        let(:is_moderator) { true }
-
-        it 'changes moderator filed false' do
-          expect(user).to be_admin
-          expect(user).not_to be_moderator
-        end
-      end
-
-      context 'when user is not a moderator' do
-        let(:is_moderator) { false }
-
-        it 'does not change status' do
-          expect(user).to be_admin
-          expect(user).not_to be_moderator
-        end
-      end
-    end
-
-    context 'when user is not admin' do
-      let(:is_admin) { false }
-
-      context 'when user is a moderator' do
-        let(:is_moderator) { true }
-
-        it 'changes user into an admin' do
-          expect(user).to be_admin
-          expect(user).not_to be_moderator
-        end
-      end
-
-      context 'when user is not a moderator' do
-        let(:is_moderator) { false }
-
-        it 'changes user into a moderator' do
-          expect(user).not_to be_admin
-          expect(user).to be_moderator
-        end
-      end
-    end
-  end
-
-  describe '#demote!' do
-    subject(:user) { Fabricate(:user, admin: admin, moderator: moderator) }
-
-    before do
-      user.demote!
-    end
-
-    context 'when user is an admin' do
-      let(:admin) { true }
-
-      context 'when user is a moderator' do
-        let(:moderator) { true }
-
-        it 'changes user into a moderator' do
-          expect(user).not_to be_admin
-          expect(user).to be_moderator
-        end
-      end
-
-      context 'when user is not a moderator' do
-        let(:moderator) { false }
-
-        it 'changes user into a moderator' do
-          expect(user).not_to be_admin
-          expect(user).to be_moderator
-        end
-      end
-    end
-
-    context 'when user is not an admin' do
-      let(:admin) { false }
-
-      context 'when user is a moderator' do
-        let(:moderator) { true }
-
-        it 'changes user into a plain user' do
-          expect(user).not_to be_admin
-          expect(user).not_to be_moderator
-        end
-      end
-
-      context 'when user is not a moderator' do
-        let(:moderator) { false }
-
-        it 'does not change any fields' do
-          expect(user).not_to be_admin
-          expect(user).not_to be_moderator
-        end
-      end
-    end
-  end
-
   describe '#active_for_authentication?' do
     subject { user.active_for_authentication? }
     let(:user) { Fabricate(:user, disabled: disabled, confirmed_at: confirmed_at) }
@@ -546,5 +404,9 @@ RSpec.describe User, type: :model do
         it { is_expected.to be true }
       end
     end
+  end
+
+  describe '.those_who_can' do
+    pending
   end
 end

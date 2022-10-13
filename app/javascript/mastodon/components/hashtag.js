@@ -38,13 +38,14 @@ class SilentErrorBoundary extends React.Component {
  *
  * @type {(displayNumber: JSX.Element, pluralReady: number) => JSX.Element}
  */
-const accountsCountRenderer = (displayNumber, pluralReady) => (
+export const accountsCountRenderer = (displayNumber, pluralReady) => (
   <FormattedMessage
     id='trends.counter_by_accounts'
-    defaultMessage='{count, plural, one {{counter} person} other {{counter} people}} talking'
+    defaultMessage='{count, plural, one {{counter} person} other {{counter} people}} in the past {days, plural, one {day} other {{days} days}}'
     values={{
       count: pluralReady,
       counter: <strong>{displayNumber}</strong>,
+      days: 2,
     }}
   />
 );
@@ -64,7 +65,7 @@ ImmutableHashtag.propTypes = {
   hashtag: ImmutablePropTypes.map.isRequired,
 };
 
-const Hashtag = ({ name, href, to, people, uses, history, className }) => (
+const Hashtag = ({ name, href, to, people, history, className }) => (
   <div className={classNames('trends__item', className)}>
     <div className='trends__item__name'>
       <Permalink href={href} to={to}>
@@ -72,10 +73,6 @@ const Hashtag = ({ name, href, to, people, uses, history, className }) => (
       </Permalink>
 
       {typeof people !== 'undefined' ? <ShortNumber value={people} renderer={accountsCountRenderer} /> : <Skeleton width={100} />}
-    </div>
-
-    <div className='trends__item__current'>
-      {typeof uses !== 'undefined' ? <ShortNumber value={uses} /> : <Skeleton width={42} height={36} />}
     </div>
 
     <div className='trends__item__sparkline'>

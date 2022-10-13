@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::AccountsController, type: :controller do
   render_views
 
-  let(:user)   { Fabricate(:user, account: Fabricate(:account, username: 'alice')) }
+  let(:user)   { Fabricate(:user) }
   let(:scopes) { '' }
   let(:token)  { Fabricate(:accessible_access_token, resource_owner_id: user.id, scopes: scopes) }
 
@@ -69,7 +69,7 @@ RSpec.describe Api::V1::AccountsController, type: :controller do
 
   describe 'POST #follow' do
     let(:scopes) { 'write:follows' }
-    let(:other_account) { Fabricate(:user, email: 'bob@example.com', account: Fabricate(:account, username: 'bob', locked: locked)).account }
+    let(:other_account) { Fabricate(:account, username: 'bob', locked: locked) }
 
     context do
       before do
@@ -145,12 +145,23 @@ RSpec.describe Api::V1::AccountsController, type: :controller do
         expect(json[:showing_reblogs]).to be false
         expect(json[:notifying]).to be true
       end
+
+      it 'changes languages option' do
+        post :follow, params: { id: other_account.id, languages: %w(en es) }
+
+        json = body_as_json
+
+        expect(json[:following]).to be true
+        expect(json[:showing_reblogs]).to be false
+        expect(json[:notifying]).to be false
+        expect(json[:languages]).to match_array %w(en es)
+      end
     end
   end
 
   describe 'POST #unfollow' do
     let(:scopes) { 'write:follows' }
-    let(:other_account) { Fabricate(:user, email: 'bob@example.com', account: Fabricate(:account, username: 'bob')).account }
+    let(:other_account) { Fabricate(:account, username: 'bob') }
 
     before do
       user.account.follow!(other_account)
@@ -170,7 +181,7 @@ RSpec.describe Api::V1::AccountsController, type: :controller do
 
   describe 'POST #remove_from_followers' do
     let(:scopes) { 'write:follows' }
-    let(:other_account) { Fabricate(:user, email: 'bob@example.com', account: Fabricate(:account, username: 'bob')).account }
+    let(:other_account) { Fabricate(:account, username: 'bob') }
 
     before do
       other_account.follow!(user.account)
@@ -190,7 +201,7 @@ RSpec.describe Api::V1::AccountsController, type: :controller do
 
   describe 'POST #block' do
     let(:scopes) { 'write:blocks' }
-    let(:other_account) { Fabricate(:user, email: 'bob@example.com', account: Fabricate(:account, username: 'bob')).account }
+    let(:other_account) { Fabricate(:account, username: 'bob') }
 
     before do
       user.account.follow!(other_account)
@@ -214,7 +225,7 @@ RSpec.describe Api::V1::AccountsController, type: :controller do
 
   describe 'POST #unblock' do
     let(:scopes) { 'write:blocks' }
-    let(:other_account) { Fabricate(:user, email: 'bob@example.com', account: Fabricate(:account, username: 'bob')).account }
+    let(:other_account) { Fabricate(:account, username: 'bob') }
 
     before do
       user.account.block!(other_account)
@@ -234,7 +245,7 @@ RSpec.describe Api::V1::AccountsController, type: :controller do
 
   describe 'POST #mute' do
     let(:scopes) { 'write:mutes' }
-    let(:other_account) { Fabricate(:user, email: 'bob@example.com', account: Fabricate(:account, username: 'bob')).account }
+    let(:other_account) { Fabricate(:account, username: 'bob') }
 
     before do
       user.account.follow!(other_account)
@@ -262,7 +273,7 @@ RSpec.describe Api::V1::AccountsController, type: :controller do
 
   describe 'POST #mute with notifications set to false' do
     let(:scopes) { 'write:mutes' }
-    let(:other_account) { Fabricate(:user, email: 'bob@example.com', account: Fabricate(:account, username: 'bob')).account }
+    let(:other_account) { Fabricate(:account, username: 'bob') }
 
     before do
       user.account.follow!(other_account)
@@ -290,7 +301,7 @@ RSpec.describe Api::V1::AccountsController, type: :controller do
 
   describe 'POST #mute with nonzero duration set' do
     let(:scopes) { 'write:mutes' }
-    let(:other_account) { Fabricate(:user, email: 'bob@example.com', account: Fabricate(:account, username: 'bob')).account }
+    let(:other_account) { Fabricate(:account, username: 'bob') }
 
     before do
       user.account.follow!(other_account)
@@ -318,7 +329,7 @@ RSpec.describe Api::V1::AccountsController, type: :controller do
 
   describe 'POST #unmute' do
     let(:scopes) { 'write:mutes' }
-    let(:other_account) { Fabricate(:user, email: 'bob@example.com', account: Fabricate(:account, username: 'bob')).account }
+    let(:other_account) { Fabricate(:account, username: 'bob') }
 
     before do
       user.account.mute!(other_account)

@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class ResolveAccountService < BaseService
-  include JsonLdHelper
   include DomainControlHelper
   include WebfingerHelper
+  include Redisable
+  include Lockable
 
   # Find or create an account record for a remote user. When creating,
   # look up the user's webfinger and fetch ActivityPub data
@@ -11,6 +12,7 @@ class ResolveAccountService < BaseService
   # @param [Hash] options
   # @option options [Boolean] :redirected Do not follow further Webfinger redirects
   # @option options [Boolean] :skip_webfinger Do not attempt any webfinger query or refreshing account data
+  # @option options [Boolean] :suppress_errors When failing, return nil instead of raising an error
   # @return [Account]
   def call(uri, options = {})
     return if uri.blank?
@@ -50,22 +52,22 @@ class ResolveAccountService < BaseService
     # either needs to be created, or updated from fresh data
 
     fetch_account!
-  rescue Webfinger::Error, Oj::ParseError => e
+  rescue Webfinger::Error => e
     Rails.logger.debug "Webfinger query for #{@uri} failed: #{e}"
-    nil
+    raise unless @options[:suppress_errors]
   end
 
   private
 
   def process_options!(uri, options)
-    @options = options
+    @options = { suppress_errors: true }.merge(options)
 
     if uri.is_a?(Account)
       @account  = uri
       @username = @account.username
       @domain   = @account.domain
     else
-      @username, @domain = uri.split('@')
+      @username, @domain = uri.strip.gsub(/\A@/, '').split('@')
     end
 
     @domain = begin
@@ -94,7 +96,7 @@ class ResolveAccountService < BaseService
     @username, @domain = split_acct(@webfinger.subject)
 
     unless confirmed_username.casecmp(@username).zero? && confirmed_domain.casecmp(@domain).zero?
-      raise Webfinger::RedirectError, "The URI #{uri} tries to hijack #{@username}@#{@domain}"
+      raise Webfinger::RedirectError, "Too many webfinger redirects for URI #{uri} (stopped at #{@username}@#{@domain})"
     end
   rescue Webfinger::GoneError
     @gone = true
@@ -107,12 +109,8 @@ class ResolveAccountService < BaseService
   def fetch_account!
     return unless activitypub_ready?
 
-    RedisLock.acquire(lock_options) do |lock|
-      if lock.acquired?
-        @account = ActivityPub::FetchRemoteAccountService.new.call(actor_url)
-      else
-        raise Mastodon::RaceConditionError
-      end
+    with_lock("resolve:#{@username}@#{@domain}") do
+      @account = ActivityPub::FetchRemoteAccountService.new.call(actor_url, suppress_errors: @options[:suppress_errors])
     end
 
     @account
@@ -143,10 +141,6 @@ class ResolveAccountService < BaseService
 
   def queue_deletion!
     @account.suspend!(origin: :remote)
-    AccountDeletionWorker.perform_async(@account.id, reserve_username: false, skip_activitypub: true)
-  end
-
-  def lock_options
-    { redis: Redis.current, key: "resolve:#{@username}@#{@domain}", autorelease: 15.minutes.seconds }
+    AccountDeletionWorker.perform_async(@account.id, { 'reserve_username' => false, 'skip_activitypub' => true })
   end
 end

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   get 'health', to: 'health#show'
 
-  authenticate :user, lambda { |u| u.admin? } do
+  authenticate :user, lambda { |u| u.role&.can?(:view_devops) } do
     mount Sidekiq::Web, at: 'sidekiq', as: :sidekiq
     mount PgHero::Engine, at: 'pghero', as: :pghero
   end
@@ -95,7 +95,6 @@ Rails.application.routes.draw do
   get  '/interact/:id', to: 'remote_interaction#new', as: :remote_interaction
   post '/interact/:id', to: 'remote_interaction#create'
 
-  get '/explore', to: 'directories#index', as: :explore
   get '/settings', to: redirect('/settings/profile')
 
   namespace :settings do
@@ -164,6 +163,12 @@ Rails.application.routes.draw do
     resources :login_activities, only: [:index]
   end
 
+  namespace :disputes do
+    resources :strikes, only: [:show, :index] do
+      resource :appeal, only: [:create]
+    end
+  end
+
   resources :media, only: [:show] do
     get :player
   end
@@ -171,11 +176,20 @@ Rails.application.routes.draw do
   resources :tags,   only: [:show]
   resources :emojis, only: [:show]
   resources :invites, only: [:index, :create, :destroy]
-  resources :filters, except: [:show]
+  resources :filters, except: [:show] do
+    resources :statuses, only: [:index], controller: 'filters/statuses' do
+      collection do
+        post :batch
+      end
+    end
+  end
+
   resource :relationships, only: [:show, :update]
   resource :statuses_cleanup, controller: :statuses_cleanup, only: [:show, :update]
 
-  get '/public', to: 'public_timelines#show', as: :public_timeline
+  get '/explore', to: redirect('/web/explore')
+  get '/public', to: redirect('/web/public')
+  get '/public/local', to: redirect('/web/public/local')
   get '/media_proxy/:id/(*any)', to: 'media_proxy#show', as: :media_proxy
 
   resource :authorize_interaction, only: [:show, :create]
@@ -185,9 +199,14 @@ Rails.application.routes.draw do
     get '/dashboard', to: 'dashboard#index'
 
     resources :domain_allows, only: [:new, :create, :show, :destroy]
-    resources :domain_blocks, only: [:new, :create, :show, :destroy, :update, :edit]
+    resources :domain_blocks, only: [:new, :create, :destroy, :update, :edit]
 
-    resources :email_domain_blocks, only: [:index, :new, :create, :destroy]
+    resources :email_domain_blocks, only: [:index, :new, :create] do
+      collection do
+        post :batch
+      end
+    end
+
     resources :action_logs, only: [:index]
     resources :warning_presets, except: [:new]
 
@@ -224,15 +243,26 @@ Rails.application.routes.draw do
 
     resources :rules
 
+    resources :webhooks do
+      member do
+        post :enable
+        post :disable
+      end
+
+      resource :secret, only: [], controller: 'webhooks/secrets' do
+        post :rotate
+      end
+    end
+
     resources :reports, only: [:index, :show] do
+      resources :actions, only: [:create], controller: 'reports/actions'
+
       member do
         post :assign_to_self
         post :unassign
         post :reopen
         post :resolve
       end
-
-      resources :reported_statuses, only: [:create]
     end
 
     resources :report_notes, only: [:create, :destroy]
@@ -259,7 +289,13 @@ Rails.application.routes.draw do
       resource :change_email, only: [:show, :update]
       resource :reset, only: [:create]
       resource :action, only: [:new, :create], controller: 'account_actions'
-      resources :statuses, only: [:index, :show, :create, :update, :destroy]
+
+      resources :statuses, only: [:index] do
+        collection do
+          post :batch
+        end
+      end
+
       resources :relationships, only: [:index]
 
       resource :confirmation, only: [:create] do
@@ -267,18 +303,11 @@ Rails.application.routes.draw do
           post :resend
         end
       end
-
-      resource :role, only: [] do
-        member do
-          post :promote
-          post :demote
-        end
-      end
     end
 
     resources :users, only: [] do
-      resource :two_factor_authentication, only: [:destroy]
-      resource :sign_in_token_authentication, only: [:create, :destroy]
+      resource :two_factor_authentication, only: [:destroy], controller: 'users/two_factor_authentications'
+      resource :role, only: [:show, :update], controller: 'users/roles'
     end
 
     resources :custom_emojis, only: [:index, :new, :create] do
@@ -293,6 +322,7 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :roles, except: [:show]
     resources :account_moderation_notes, only: [:create, :destroy]
     resource :follow_recommendations, only: [:show, :update]
     resources :tags, only: [:show, :update]
@@ -310,11 +340,26 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :statuses, only: [:index] do
+        collection do
+          post :batch
+        end
+      end
+
       namespace :links do
         resources :preview_card_providers, only: [:index], path: :publishers do
           collection do
             post :batch
           end
+        end
+      end
+    end
+
+    namespace :disputes do
+      resources :appeals, only: [:index] do
+        member do
+          post :approve
+          post :reject
         end
       end
     end
@@ -328,7 +373,7 @@ Rails.application.routes.draw do
 
     # JSON / REST API
     namespace :v1 do
-      resources :statuses, only: [:create, :show, :destroy] do
+      resources :statuses, only: [:create, :show, :update, :destroy] do
         scope module: :statuses do
           resources :reblogged_by, controller: :reblogged_by_accounts, only: :index
           resources :favourited_by, controller: :favourited_by_accounts, only: :index
@@ -346,6 +391,11 @@ Rails.application.routes.draw do
 
           resource :pin, only: :create
           post :unpin, to: 'pins#destroy'
+
+          resource :history, only: :show
+          resource :source, only: :show
+
+          post :translate, to: 'translations#create'
         end
 
         member do
@@ -406,9 +456,17 @@ Rails.application.routes.draw do
       resources :bookmarks,    only: [:index]
       resources :reports,      only: [:create]
       resources :trends,       only: [:index], controller: 'trends/tags'
-      resources :filters,      only: [:index, :create, :show, :update, :destroy]
+      resources :filters,      only: [:index, :create, :show, :update, :destroy] do
+        resources :keywords, only: [:index, :create], controller: 'filters/keywords'
+        resources :statuses, only: [:index, :create], controller: 'filters/statuses'
+      end
       resources :endorsements, only: [:index]
       resources :markers,      only: [:index, :create]
+
+      namespace :filters do
+        resources :keywords, only: [:show, :update, :destroy]
+        resources :statuses, only: [:show, :destroy]
+      end
 
       namespace :apps do
         get :verify_credentials, to: 'credentials#show'
@@ -419,6 +477,7 @@ Rails.application.routes.draw do
       namespace :trends do
         resources :links, only: [:index]
         resources :tags, only: [:index]
+        resources :statuses, only: [:index]
       end
 
       namespace :emails do
@@ -427,8 +486,9 @@ Rails.application.routes.draw do
 
       resource :instance, only: [:show] do
         resources :peers, only: [:index], controller: 'instances/peers'
-        resource :activity, only: [:show], controller: 'instances/activity'
         resources :rules, only: [:index], controller: 'instances/rules'
+        resource :privacy_policy, only: [:show], controller: 'instances/privacy_policies'
+        resource :activity, only: [:show], controller: 'instances/activity'
       end
 
       resource :domain_blocks, only: [:show, :create, :destroy]
@@ -457,6 +517,7 @@ Rails.application.routes.draw do
         resource :search, only: :show, controller: :search
         resource :lookup, only: :show, controller: :lookup
         resources :relationships, only: :index
+        resources :familiar_followers, only: :index
       end
 
       resources :accounts, only: [:create, :show] do
@@ -481,6 +542,15 @@ Rails.application.routes.draw do
         post :unpin, to: 'accounts/pins#destroy'
         resource :note, only: :create, controller: 'accounts/notes'
       end
+
+      resources :tags, only: [:show] do
+        member do
+          post :follow
+          post :unfollow
+        end
+      end
+
+      resources :followed_tags, only: [:index]
 
       resources :lists, only: [:index, :create, :show, :update, :destroy] do
         resource :accounts, only: [:show, :create, :destroy], controller: 'lists/accounts'
@@ -514,7 +584,7 @@ Rails.application.routes.draw do
           resource :action, only: [:create], controller: 'account_actions'
         end
 
-        resources :reports, only: [:index, :show] do
+        resources :reports, only: [:index, :update, :show] do
           member do
             post :assign_to_self
             post :unassign
@@ -523,20 +593,40 @@ Rails.application.routes.draw do
           end
         end
 
+        resources :domain_allows, only: [:index, :show, :create, :destroy]
+        resources :domain_blocks, only: [:index, :show, :update, :create, :destroy]
+        resources :email_domain_blocks, only: [:index, :show, :create, :destroy]
+        resources :ip_blocks, only: [:index, :show, :update, :create, :destroy]
+
         namespace :trends do
           resources :tags, only: [:index]
+          resources :links, only: [:index]
+          resources :statuses, only: [:index]
         end
 
         post :measures, to: 'measures#create'
         post :dimensions, to: 'dimensions#create'
         post :retention, to: 'retention#create'
+
+        resources :canonical_email_blocks, only: [:index, :create, :show, :destroy] do
+          collection do
+            post :test
+          end
+        end
       end
     end
 
     namespace :v2 do
-      resources :media, only: [:create]
       get '/search', to: 'search#index', as: :search
+
+      resources :media,       only: [:create]
       resources :suggestions, only: [:index]
+      resources :filters,     only: [:index, :create, :show, :update, :destroy]
+      resource  :instance,    only: [:show]
+
+      namespace :admin do
+        resources :accounts, only: [:index]
+      end
     end
 
     namespace :web do
@@ -552,9 +642,11 @@ Rails.application.routes.draw do
 
   get '/web/(*any)', to: 'home#index', as: :web
 
-  get '/about',        to: 'about#show'
+  get '/about',        to: redirect('/')
   get '/about/more',   to: 'about#more'
-  get '/terms',        to: 'about#terms'
+
+  get '/privacy-policy', to: 'privacy#show', as: :privacy_policy
+  get '/terms',          to: redirect('/privacy-policy')
 
   match '/', via: [:post, :put, :patch, :delete], to: 'application#raise_not_found', format: false
   match '*unmatched_route', via: :all, to: 'application#raise_not_found', format: false

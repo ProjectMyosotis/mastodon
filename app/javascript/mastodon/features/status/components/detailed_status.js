@@ -16,6 +16,7 @@ import classNames from 'classnames';
 import Icon from 'mastodon/components/icon';
 import AnimatedNumber from 'mastodon/components/animated_number';
 import PictureInPicturePlaceholder from 'mastodon/components/picture_in_picture_placeholder';
+import EditedTimestamp from 'mastodon/components/edited_timestamp';
 
 const messages = defineMessages({
   public_short: { id: 'privacy.public.short', defaultMessage: 'Public' },
@@ -36,6 +37,7 @@ class DetailedStatus extends ImmutablePureComponent {
     onOpenMedia: PropTypes.func.isRequired,
     onOpenVideo: PropTypes.func.isRequired,
     onToggleHidden: PropTypes.func.isRequired,
+    onTranslate: PropTypes.func.isRequired,
     measureHeight: PropTypes.bool,
     onHeightChange: PropTypes.func,
     domain: PropTypes.string.isRequired,
@@ -102,6 +104,11 @@ class DetailedStatus extends ImmutablePureComponent {
     window.open(href, 'mastodon-intent', 'width=445,height=600,resizable=no,menubar=no,status=no,scrollbars=yes');
   }
 
+  handleTranslate = () => {
+    const { onTranslate, status } = this.props;
+    onTranslate(status);
+  }
+
   render () {
     const status = (this.props.status && this.props.status.get('reblog')) ? this.props.status.get('reblog') : this.props.status;
     const outerStyle = { boxSizing: 'border-box' };
@@ -116,6 +123,7 @@ class DetailedStatus extends ImmutablePureComponent {
     let reblogLink = '';
     let reblogIcon = 'retweet';
     let favouriteLink = '';
+    let edited = '';
 
     if (this.props.measureHeight) {
       outerStyle.height = `${this.state.height}px`;
@@ -136,7 +144,11 @@ class DetailedStatus extends ImmutablePureComponent {
             backgroundColor={attachment.getIn(['meta', 'colors', 'background'])}
             foregroundColor={attachment.getIn(['meta', 'colors', 'foreground'])}
             accentColor={attachment.getIn(['meta', 'colors', 'accent'])}
+            sensitive={status.get('sensitive')}
+            visible={this.props.showMedia}
+            blurhash={attachment.get('blurhash')}
             height={150}
+            onToggleVisibility={this.props.onToggleMediaVisibility}
           />
         );
       } else if (status.getIn(['media_attachments', 0, 'type']) === 'video') {
@@ -183,7 +195,7 @@ class DetailedStatus extends ImmutablePureComponent {
       'public': { icon: 'globe', text: intl.formatMessage(messages.public_short) },
       'unlisted': { icon: 'unlock', text: intl.formatMessage(messages.unlisted_short) },
       'private': { icon: 'lock', text: intl.formatMessage(messages.private_short) },
-      'direct': { icon: 'envelope', text: intl.formatMessage(messages.direct_short) },
+      'direct': { icon: 'at', text: intl.formatMessage(messages.direct_short) },
     };
 
     const visibilityIcon = visibilityIconInfo[status.get('visibility')];
@@ -237,6 +249,15 @@ class DetailedStatus extends ImmutablePureComponent {
       );
     }
 
+    if (status.get('edited_at')) {
+      edited = (
+        <React.Fragment>
+          <React.Fragment> · </React.Fragment>
+          <EditedTimestamp statusId={status.get('id')} timestamp={status.get('edited_at')} />
+        </React.Fragment>
+      );
+    }
+
     return (
       <div style={outerStyle}>
         <div ref={this.setRef} className={classNames('detailed-status', `detailed-status-${status.get('visibility')}`, { compact })}>
@@ -245,14 +266,19 @@ class DetailedStatus extends ImmutablePureComponent {
             <DisplayName account={status.get('account')} localDomain={this.props.domain} />
           </a>
 
-          <StatusContent status={status} expanded={!status.get('hidden')} onExpandedToggle={this.handleExpandedToggle} />
+          <StatusContent
+            status={status}
+            expanded={!status.get('hidden')}
+            onExpandedToggle={this.handleExpandedToggle}
+            onTranslate={this.handleTranslate}
+          />
 
           {media}
 
           <div className='detailed-status__meta'>
             <a className='detailed-status__datetime' href={status.get('url')} target='_blank' rel='noopener noreferrer'>
               <FormattedDate value={new Date(status.get('created_at'))} hour12={false} year='numeric' month='short' day='2-digit' hour='2-digit' minute='2-digit' />
-            </a>{visibilityLink}{applicationLink}{reblogLink} · {favouriteLink}
+            </a>{edited}{visibilityLink}{applicationLink}{reblogLink} · {favouriteLink}
           </div>
         </div>
       </div>
