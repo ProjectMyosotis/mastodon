@@ -1,44 +1,26 @@
 ---
 th:
   about:
-    about_hashtag_html: นี่คือโพสต์สาธารณะที่ได้รับการแท็กด้วย <strong>#%{hashtag}</strong> คุณสามารถโต้ตอบกับโพสต์ได้หากคุณมีบัญชีที่ใดก็ตามในจักรวาลสหพันธ์
     about_mastodon_html: 'เครือข่ายสังคมแห่งอนาคต: ไม่มีโฆษณา ไม่มีการสอดแนมโดยองค์กร การออกแบบตามหลักจริยธรรม และการกระจายศูนย์! เป็นเจ้าของข้อมูลของคุณด้วย Mastodon!'
     about_this: เกี่ยวกับ
-    active_count_after: ใช้งานอยู่
-    active_footnote: ผู้ใช้ที่ใช้งานอยู่รายเดือน (MAU)
     administered_by: 'ดูแลโดย:'
     api: API
     apps: แอปมือถือ
-    apps_platforms: ใช้ Mastodon จาก iOS, Android และแพลตฟอร์มอื่น ๆ
-    browse_directory: เรียกดูไดเรกทอรีโปรไฟล์และกรองตามความสนใจ
-    browse_local_posts: เรียกดูสตรีมสดของโพสต์สาธารณะจากเซิร์ฟเวอร์นี้
-    browse_public_posts: เรียกดูสตรีมสดของโพสต์สาธารณะใน Mastodon
     contact: ติดต่อ
     contact_missing: ไม่ได้ตั้ง
     contact_unavailable: ไม่มี
-    continue_to_web: ดำเนินการต่อไปยังแอปเว็บ
-    discover_users: ค้นพบผู้ใช้
     documentation: เอกสารประกอบ
-    federation_hint_html: ด้วยบัญชีที่ %{instance} คุณจะสามารถติดตามผู้คนในเซิร์ฟเวอร์ Mastodon และอื่น ๆ
-    get_apps: ลองแอปมือถือ
     hosted_on: Mastodon ที่โฮสต์ที่ %{domain}
     instance_actor_flash: 'บัญชีนี้เป็นตัวดำเนินการเสมือนที่ใช้เพื่อเป็นตัวแทนของเซิร์ฟเวอร์เองและไม่ใช่ผู้ใช้รายบุคคลใด ๆ บัญชีใช้สำหรับวัตถุประสงค์ในการติดต่อกับภายนอกและไม่ควรได้รับการปิดกั้นเว้นแต่คุณต้องการปิดกั้นทั้งอินสแตนซ์ ในกรณีนี้คุณควรใช้การปิดกั้นโดเมน
 
       '
-    learn_more: เรียนรู้เพิ่มเติม
-    logged_in_as_html: คุณกำลังเข้าสู่ระบบเป็น %{username} ในปัจจุบัน
-    logout_before_registering: คุณได้เข้าสู่ระบบอยู่แล้ว
     privacy_policy: นโยบายความเป็นส่วนตัว
     rules: กฎของเซิร์ฟเวอร์
     rules_html: 'ด้านล่างคือข้อมูลสรุปของกฎที่คุณจำเป็นต้องปฏิบัติตามหากคุณต้องการมีบัญชีในเซิร์ฟเวอร์ Mastodon นี้:'
-    see_whats_happening: ดูสิ่งที่กำลังเกิดขึ้น
-    server_stats: 'สถิติเซิร์ฟเวอร์:'
     source_code: โค้ดต้นฉบับ
     status_count_after:
       other: โพสต์
     status_count_before: ผู้เผยแพร่
-    tagline: เครือข่ายสังคมแบบกระจายศูนย์
-    terms: เงื่อนไขการให้บริการ
     unavailable_content: เซิร์ฟเวอร์ที่มีการควบคุม
     unavailable_content_description:
       domain: เซิร์ฟเวอร์
@@ -230,17 +212,21 @@ th:
         approve_user: อนุมัติผู้ใช้
         assigned_to_self_report: มอบหมายรายงาน
         change_email_user: เปลี่ยนอีเมลสำหรับผู้ใช้
+        change_role_user: เปลี่ยนบทบาทของผู้ใช้
         confirm_user: ยืนยันผู้ใช้
         create_account_warning: สร้างคำเตือน
         create_announcement: สร้างประกาศ
+        create_canonical_email_block: สร้างการปิดกั้นอีเมล
         create_custom_emoji: สร้างอีโมจิที่กำหนดเอง
         create_domain_allow: สร้างการอนุญาตโดเมน
         create_domain_block: สร้างการปิดกั้นโดเมน
         create_email_domain_block: สร้างการปิดกั้นโดเมนอีเมล
         create_ip_block: สร้างกฎ IP
         create_unavailable_domain: สร้างโดเมนที่ไม่พร้อมใช้งาน
+        create_user_role: สร้างบทบาท
         demote_user: ลดขั้นผู้ใช้
         destroy_announcement: ลบประกาศ
+        destroy_canonical_email_block: ลบการปิดกั้นอีเมล
         destroy_custom_emoji: ลบอีโมจิที่กำหนดเอง
         destroy_domain_allow: ลบการอนุญาตโดเมน
         destroy_domain_block: ลบการปิดกั้นโดเมน
@@ -249,6 +235,7 @@ th:
         destroy_ip_block: ลบกฎ IP
         destroy_status: ลบโพสต์
         destroy_unavailable_domain: ลบโดเมนที่ไม่พร้อมใช้งาน
+        destroy_user_role: ทำลายบทบาท
         disable_2fa_user: ปิดใช้งาน 2FA
         disable_custom_emoji: ปิดใช้งานอีโมจิที่กำหนดเอง
         disable_sign_in_token_auth_user: ปิดใช้งานการรับรองความถูกต้องด้วยโทเคนอีเมลสำหรับผู้ใช้
@@ -275,24 +262,30 @@ th:
         update_announcement: อัปเดตประกาศ
         update_custom_emoji: อัปเดตอีโมจิที่กำหนดเอง
         update_domain_block: อัปเดตการปิดกั้นโดเมน
+        update_ip_block: อัปเดตกฎ IP
         update_status: อัปเดตโพสต์
+        update_user_role: อัปเดตบทบาท
       actions:
         approve_appeal_html: "%{name} ได้อนุมัติการอุทธรณ์การตัดสินใจในการควบคุมจาก %{target}"
         approve_user_html: "%{name} ได้อนุมัติการลงทะเบียนจาก %{target}"
         assigned_to_self_report_html: "%{name} ได้มอบหมายรายงาน %{target} ให้กับตนเอง"
         change_email_user_html: "%{name} ได้เปลี่ยนที่อยู่อีเมลของผู้ใช้ %{target}"
+        change_role_user_html: "%{name} ได้เปลี่ยนบทบาทของ %{target}"
         confirm_user_html: "%{name} ได้ยืนยันที่อยู่อีเมลของผู้ใช้ %{target}"
         create_account_warning_html: "%{name} ได้ส่งคำเตือนไปยัง %{target}"
         create_announcement_html: "%{name} ได้สร้างประกาศใหม่ %{target}"
+        create_canonical_email_block_html: "%{name} ได้ปิดกั้นอีเมลที่มีแฮช %{target}"
         create_custom_emoji_html: "%{name} ได้อัปโหลดอีโมจิใหม่ %{target}"
         create_domain_allow_html: "%{name} ได้อนุญาตการติดต่อกับภายนอกกับโดเมน %{target}"
         create_domain_block_html: "%{name} ได้ปิดกั้นโดเมน %{target}"
         create_email_domain_block_html: "%{name} ได้ปิดกั้นโดเมนอีเมล %{target}"
         create_ip_block_html: "%{name} ได้สร้างกฎสำหรับ IP %{target}"
         create_unavailable_domain_html: "%{name} ได้หยุดการจัดส่งไปยังโดเมน %{target}"
+        create_user_role_html: "%{name} ได้สร้างบทบาท %{target}"
         demote_user_html: "%{name} ได้ลดขั้นผู้ใช้ %{target}"
         destroy_announcement_html: "%{name} ได้ลบประกาศ %{target}"
-        destroy_custom_emoji_html: "%{name} ได้ทำลายอีโมจิ %{target}"
+        destroy_canonical_email_block_html: "%{name} ได้เลิกปิดกั้นอีเมลที่มีแฮช %{target}"
+        destroy_custom_emoji_html: "%{name} ได้ลบอีโมจิ %{target}"
         destroy_domain_allow_html: "%{name} ได้ไม่อนุญาตการติดต่อกับภายนอกกับโดเมน %{target}"
         destroy_domain_block_html: "%{name} ได้เลิกปิดกั้นโดเมน %{target}"
         destroy_email_domain_block_html: "%{name} ได้เลิกปิดกั้นโดเมนอีเมล %{target}"
@@ -300,6 +293,7 @@ th:
         destroy_ip_block_html: "%{name} ได้ลบกฎสำหรับ IP %{target}"
         destroy_status_html: "%{name} ได้เอาโพสต์โดย %{target} ออก"
         destroy_unavailable_domain_html: "%{name} ได้ทำการจัดส่งไปยังโดเมน %{target} ต่อ"
+        destroy_user_role_html: "%{name} ได้ลบบทบาท %{target}"
         disable_2fa_user_html: "%{name} ได้ปิดใช้งานความต้องการสองปัจจัยสำหรับผู้ใช้ %{target}"
         disable_custom_emoji_html: "%{name} ได้ปิดใช้งานอีโมจิ %{target}"
         disable_sign_in_token_auth_user_html: "%{name} ได้ปิดใช้งานการรับรองความถูกต้องด้วยโทเคนอีเมลสำหรับ %{target}"
@@ -326,8 +320,9 @@ th:
         update_announcement_html: "%{name} ได้อัปเดตประกาศ %{target}"
         update_custom_emoji_html: "%{name} ได้อัปเดตอีโมจิ %{target}"
         update_domain_block_html: "%{name} ได้อัปเดตการปิดกั้นโดเมนสำหรับ %{target}"
+        update_ip_block_html: "%{name} ได้เปลี่ยนกฎสำหรับ IP %{target}"
         update_status_html: "%{name} ได้อัปเดตโพสต์โดย %{target}"
-      deleted_status: "(โพสต์ที่ลบแล้ว)"
+        update_user_role_html: "%{name} ได้เปลี่ยนบทบาท %{target}"
       empty: ไม่พบรายการบันทึก
       filter_by_action: กรองตามการกระทำ
       filter_by_user: กรองตามผู้ใช้
@@ -647,7 +642,9 @@ th:
         other: "%{count} สิทธิอนุญาต"
       privileges:
         administrator: ผู้ดูแล
+        administrator_description: ผู้ใช้ที่มีสิทธิอนุญาตนี้จะข้ามทุกสิทธิอนุญาต
         delete_user_data: ลบข้อมูลผู้ใช้
+        delete_user_data_description: อนุญาตให้ผู้ใช้ลบข้อมูลของผู้ใช้อื่น ๆ โดยทันที
         invite_users: เชิญผู้ใช้
         invite_users_description: อนุญาตให้ผู้ใช้เชิญผู้คนใหม่ไปยังเซิร์ฟเวอร์
         manage_announcements: จัดการประกาศ
@@ -663,6 +660,7 @@ th:
         manage_invites: จัดการคำเชิญ
         manage_invites_description: อนุญาตให้ผู้ใช้เรียกดูและปิดใช้งานลิงก์เชิญ
         manage_reports: จัดการรายงาน
+        manage_reports_description: อนุญาตให้ผู้ใช้ตรวจทานรายงานและทำการกระทำการควบคุมกับรายงาน
         manage_roles: จัดการบทบาท
         manage_rules: จัดการกฎ
         manage_rules_description: อนุญาตให้ผู้ใช้เปลี่ยนกฎของเซิร์ฟเวอร์
@@ -672,6 +670,9 @@ th:
         manage_taxonomies_description: อนุญาตให้ผู้ใช้ตรวจทานเนื้อหาที่กำลังนิยมและอัปเดตการตั้งค่าแฮชแท็ก
         manage_user_access: จัดการการเข้าถึงของผู้ใช้
         manage_users: จัดการผู้ใช้
+        manage_users_description: อนุญาตให้ผู้ใช้ดูรายละเอียดของผู้ใช้อื่น ๆ และทำการกระทำการควบคุมกับผู้ใช้
+        manage_webhooks: จัดการเว็บฮุค
+        manage_webhooks_description: อนุญาตให้ผู้ใช้ตั้งค่าเว็บฮุคสำหรับเหตุการณ์การดูแล
         view_audit_log: ดูรายการบันทึกการตรวจสอบ
         view_audit_log_description: อนุญาตให้ผู้ใช้ดูประวัติการกระทำการดูแลในเซิร์ฟเวอร์
         view_dashboard: ดูแดชบอร์ด
@@ -726,9 +727,6 @@ th:
         closed_message:
           desc_html: แสดงในหน้าแรกเมื่อปิดการลงทะเบียน คุณสามารถใช้แท็ก HTML
           title: ข้อความการปิดการลงทะเบียน
-        deletion:
-          desc_html: อนุญาตให้ใครก็ตามลบบัญชีของเขา
-          title: เปิดการลบบัญชี
         require_invite_text:
           title: ต้องให้ผู้ใช้ใหม่ป้อนเหตุผลที่จะเข้าร่วม
       registrations_mode:
@@ -737,9 +735,6 @@ th:
           none: ไม่มีใครสามารถลงทะเบียน
           open: ใครก็ตามสามารถลงทะเบียน
         title: โหมดการลงทะเบียน
-      show_known_fediverse_at_about_page:
-        desc_html: เมื่อปิดใช้งาน จำกัดเส้นเวลาสาธารณะที่เชื่อมโยงจากหน้าเริ่มต้นให้แสดงเฉพาะเนื้อหาในเซิร์ฟเวอร์เท่านั้น
-        title: รวมเนื้อหาที่ติดต่อกับภายนอกไว้ในหน้าเส้นเวลาสาธารณะที่ไม่ได้รับรองความถูกต้อง
       site_description:
         desc_html: ย่อหน้าเกริ่นนำใน API อธิบายถึงสิ่งที่ทำให้เซิร์ฟเวอร์ Mastodon นี้พิเศษและสิ่งอื่นใดที่สำคัญ คุณสามารถใช้แท็ก HTML โดยเฉพาะอย่างยิ่ง <code>&lt;a&gt;</code> และ <code>&lt;em&gt;</code>
         title: คำอธิบายเซิร์ฟเวอร์
@@ -750,8 +745,8 @@ th:
         desc_html: แสดงในแถบข้างและแท็กเมตา อธิบายว่า Mastodon คืออะไรและสิ่งที่ทำให้เซิร์ฟเวอร์นี้พิเศษในย่อหน้าเดียว
         title: คำอธิบายเซิร์ฟเวอร์แบบสั้น
       site_terms:
-        desc_html: คุณสามารถเขียนนโยบายความเป็นส่วนตัว, เงื่อนไขการให้บริการ หรือภาษากฎหมายอื่น ๆ ของคุณเอง คุณสามารถใช้แท็ก HTML
-        title: เงื่อนไขการให้บริการที่กำหนดเอง
+        desc_html: คุณสามารถเขียนนโยบายความเป็นส่วนตัวของคุณเอง คุณสามารถใช้แท็ก HTML
+        title: นโยบายความเป็นส่วนตัวที่กำหนดเอง
       site_title: ชื่อเซิร์ฟเวอร์
       thumbnail:
         desc_html: ใช้สำหรับการแสดงตัวอย่างผ่าน OpenGraph และ API 1200x630px ที่แนะนำ
@@ -761,8 +756,7 @@ th:
         title: อนุญาตการเข้าถึงเส้นเวลาสาธารณะที่ไม่ได้รับรองความถูกต้อง
       title: การตั้งค่าไซต์
       trendable_by_default:
-        desc_html: มีผลต่อแฮชแท็กที่ไม่ได้ไม่อนุญาตก่อนหน้านี้
-        title: อนุญาตให้แฮชแท็กขึ้นแนวโน้มโดยไม่มีการตรวจทานล่วงหน้า
+        title: อนุญาตแนวโน้มโดยไม่มีการตรวจทานล่วงหน้า
       trends:
         desc_html: แสดงเนื้อหาที่ตรวจทานแล้วก่อนหน้านี้ที่กำลังนิยมในปัจจุบันเป็นสาธารณะ
         title: แนวโน้ม
@@ -792,8 +786,11 @@ th:
         suspend: "%{name} ได้ระงับบัญชีของ %{target}"
       appeal_approved: อุทธรณ์แล้ว
     system_checks:
+      elasticsearch_running_check:
+        message_html: ไม่สามารถเชื่อมต่อกับ Elasticsearch โปรดตรวจสอบว่าซอฟต์แวร์กำลังทำงาน หรือปิดใช้งานการค้นหาข้อความแบบเต็ม
       elasticsearch_version_check:
         message_html: 'รุ่น Elasticsearch ที่เข้ากันไม่ได้: %{value}'
+        version_comparison: Elasticsearch %{running_version} กำลังทำงานขณะที่ต้องการ %{required_version}
       rules_check:
         action: จัดการกฎของเซิร์ฟเวอร์
         message_html: คุณไม่ได้กำหนดกฎของเซิร์ฟเวอร์ใด ๆ
@@ -871,7 +868,10 @@ th:
       enabled_events:
         other: "%{count} เหตุการณ์ที่เปิดใช้งาน"
       events: เหตุการณ์
+      new: เว็บฮุคใหม่
       status: สถานะ
+      title: เว็บฮุค
+      webhook: เว็บฮุค
   admin_mailer:
     new_appeal:
       actions:
@@ -895,10 +895,8 @@ th:
     new_trends:
       body: 'รายการดังต่อไปนี้จำเป็นต้องมีการตรวจทานก่อนที่จะสามารถแสดงรายการเป็นสาธารณะ:'
       new_trending_links:
-        no_approved_links: ไม่มีลิงก์ที่กำลังนิยมที่ได้รับอนุมัติในปัจจุบัน
         title: ลิงก์ที่กำลังนิยม
       new_trending_statuses:
-        no_approved_statuses: ไม่มีโพสต์ที่กำลังนิยมที่ได้รับอนุมัติในปัจจุบัน
         title: โพสต์ที่กำลังนิยม
       new_trending_tags:
         no_approved_tags: ไม่มีแฮชแท็กที่กำลังนิยมที่ได้รับอนุมัติในปัจจุบัน
@@ -936,10 +934,7 @@ th:
     warning: ระวังเป็นอย่างสูงกับข้อมูลนี้ อย่าแบ่งปันข้อมูลกับใครก็ตาม!
     your_token: โทเคนการเข้าถึงของคุณ
   auth:
-    apply_for_account: ขอคำเชิญ
     change_password: รหัสผ่าน
-    checkbox_agreement_html: ฉันเห็นด้วยกับ <a href="%{rules_path}" target="_blank">กฎของเซิร์ฟเวอร์</a> และ <a href="%{terms_path}" target="_blank">เงื่อนไขการให้บริการ</a>
-    checkbox_agreement_without_rules_html: ฉันเห็นด้วยกับ <a href="%{terms_path}" target="_blank">เงื่อนไขการให้บริการ</a>
     delete_account: ลบบัญชี
     delete_account_html: หากคุณต้องการลบบัญชีของคุณ คุณสามารถ <a href="%{path}">ดำเนินการต่อที่นี่</a> คุณจะได้รับการถามเพื่อการยืนยัน
     description:
@@ -970,6 +965,7 @@ th:
     setup:
       email_below_hint_html: หากที่อยู่อีเมลด้านล่างไม่ถูกต้อง คุณสามารถเปลี่ยนที่อยู่อีเมลที่นี่และรับอีเมลยืนยันใหม่
       email_settings_hint_html: ส่งอีเมลยืนยันไปยัง %{email} แล้ว หากที่อยู่อีเมลนั้นไม่ถูกต้อง คุณสามารถเปลี่ยนที่อยู่อีเมลได้ในการตั้งค่าบัญชี
+      title: การตั้งค่า
     status:
       account_status: สถานะบัญชี
       confirming: กำลังรอการยืนยันอีเมลให้เสร็จสมบูรณ์
@@ -978,7 +974,6 @@ th:
       redirecting_to: บัญชีของคุณไม่ได้ใช้งานเนื่องจากบัญชีกำลังเปลี่ยนเส้นทางไปยัง %{acct} ในปัจจุบัน
       view_strikes: ดูการดำเนินการที่ผ่านมากับบัญชีของคุณ
     too_fast: ส่งแบบฟอร์มเร็วเกินไป ลองอีกครั้ง
-    trouble_logging_in: มีปัญหาในการเข้าสู่ระบบ?
     use_security_key: ใช้กุญแจความปลอดภัย
   authorize_follow:
     already_following: คุณกำลังติดตามบัญชีนี้อยู่แล้ว
@@ -1036,10 +1031,6 @@ th:
       more_details_html: สำหรับรายละเอียดเพิ่มเติม ดู <a href="%{terms_path}">นโยบายความเป็นส่วนตัว</a>
       username_available: ชื่อผู้ใช้ของคุณจะพร้อมใช้งานอีกครั้ง
       username_unavailable: ชื่อผู้ใช้ของคุณจะยังคงไม่พร้อมใช้งาน
-  directories:
-    directory: ไดเรกทอรีโปรไฟล์
-    explanation: ค้นพบผู้ใช้ตามความสนใจของเขา
-    explore_mastodon: สำรวจ %{title}
   disputes:
     strikes:
       action_taken: การกระทำที่ใช้
@@ -1125,10 +1116,18 @@ th:
       expires_on: หมดอายุเมื่อ %{date}
       keywords:
         other: "%{count} คำสำคัญ"
+      statuses:
+        other: "%{count} โพสต์"
       title: ตัวกรอง
     new:
       save: บันทึกตัวกรองใหม่
       title: เพิ่มตัวกรองใหม่
+    statuses:
+      back_to_filter: กลับไปที่ตัวกรอง
+      batch:
+        remove: เอาออกจากตัวกรอง
+      index:
+        title: โพสต์ที่กรองอยู่
   footer:
     developers: นักพัฒนา
     more: เพิ่มเติม…
@@ -1136,12 +1135,19 @@ th:
     trending_now: กำลังนิยม
   generic:
     all: ทั้งหมด
+    all_items_on_page_selected_html:
+      other: เลือกอยู่ทั้งหมด <strong>%{count}</strong> รายการในหน้านี้
+    all_matching_items_selected_html:
+      other: เลือกอยู่ทั้งหมด <strong>%{count}</strong> รายการที่ตรงกับการค้นหาของคุณ
     changes_saved_msg: บันทึกการเปลี่ยนแปลงสำเร็จ!
     copy: คัดลอก
     delete: ลบ
+    deselect: ไม่เลือกทั้งหมด
     none: ไม่มี
     order_by: เรียงลำดับตาม
     save_changes: บันทึกการเปลี่ยนแปลง
+    select_all_matching_items:
+      other: เลือกทั้งหมด %{count} รายการที่ตรงกับการค้นหาของคุณ
     today: วันนี้
     validation_errors:
       other: ยังมีบางอย่างไม่ถูกต้อง! โปรดตรวจทาน %{count} ข้อผิดพลาดด้านล่าง
@@ -1238,14 +1244,6 @@ th:
         subject: "%{name} ได้ส่งรายงาน"
       sign_up:
         subject: "%{name} ได้ลงทะเบียน"
-    digest:
-      action: ดูการแจ้งเตือนทั้งหมด
-      mention: "%{name} ได้กล่าวถึงคุณใน:"
-      new_followers_summary:
-        other: นอกจากนี้คุณยังได้รับ %{count} ผู้ติดตามใหม่ขณะที่ไม่อยู่! มหัศจรรย์!
-      subject:
-        other: "%{count} การแจ้งเตือนใหม่นับตั้งแต่การเยี่ยมชมล่าสุดของคุณ 🐘"
-      title: เมื่อคุณไม่อยู่...
     favourite:
       body: 'โพสต์ของคุณได้รับการชื่นชอบโดย %{name}:'
       subject: "%{name} ได้ชื่นชอบโพสต์ของคุณ"
@@ -1504,8 +1502,6 @@ th:
     sensitive_content: เนื้อหาที่ละเอียดอ่อน
   tags:
     does_not_match_previous_name: ไม่ตรงกับชื่อก่อนหน้านี้
-  terms:
-    title: เงื่อนไขการให้บริการและนโยบายความเป็นส่วนตัวของ %{instance}
   themes:
     contrast: Mastodon (ความคมชัดสูง)
     default: Mastodon (มืด)
@@ -1582,20 +1578,11 @@ th:
         suspend: ระงับบัญชีอยู่
     welcome:
       edit_profile_action: ตั้งค่าโปรไฟล์
-      edit_profile_step: คุณสามารถปรับแต่งโปรไฟล์ของคุณได้โดยอัปโหลดภาพประจำตัว, ส่วนหัว เปลี่ยนชื่อที่แสดงของคุณ และอื่น ๆ หากคุณต้องการตรวจทานผู้ติดตามใหม่ก่อนที่จะอนุญาตให้เขาติดตามคุณ คุณสามารถล็อคบัญชีของคุณ
       explanation: นี่คือเคล็ดลับบางส่วนที่จะช่วยให้คุณเริ่มต้นใช้งาน
       final_action: เริ่มโพสต์
-      final_step: 'เริ่มโพสต์! แม้ว่าไม่มีผู้ติดตาม โพสต์สาธารณะของคุณอาจเห็นโดยผู้อื่น ตัวอย่างเช่น ในเส้นเวลาในเซิร์ฟเวอร์และในแฮชแท็ก คุณอาจต้องการแนะนำตัวเองในแฮชแท็ก #introductions'
       full_handle: นามเต็มของคุณ
       full_handle_hint: นี่คือสิ่งที่คุณจะบอกเพื่อน ๆ ของคุณ เพื่อให้เขาสามารถส่งข้อความหรือติดตามคุณจากเซิร์ฟเวอร์อื่น
-      review_preferences_action: เปลี่ยนการกำหนดลักษณะ
-      review_preferences_step: ตรวจสอบให้แน่ใจว่าได้ตั้งการกำหนดลักษณะของคุณ เช่น อีเมลใดที่คุณต้องการรับ หรือระดับความเป็นส่วนตัวใดที่คุณต้องการให้โพสต์ของคุณเป็นค่าเริ่มต้น หากคุณไม่มีภาวะป่วยจากการเคลื่อนไหว คุณสามารถเลือกเปิดใช้งานการเล่น GIF อัตโนมัติ
       subject: ยินดีต้อนรับสู่ Mastodon
-      tip_federated_timeline: เส้นเวลาที่ติดต่อกับภายนอกคือมุมมองสายน้ำของเครือข่าย Mastodon แต่เส้นเวลารวมเฉพาะผู้คนที่เพื่อนบ้านของคุณบอกรับเท่านั้น ดังนั้นเส้นเวลาจึงไม่ครบถ้วน
-      tip_following: คุณติดตามผู้ดูแลเซิร์ฟเวอร์ของคุณเป็นค่าเริ่มต้น เพื่อค้นหาผู้คนที่น่าสนใจเพิ่มเติม ตรวจสอบเส้นเวลาในเซิร์ฟเวอร์และที่ติดต่อกับภายนอก
-      tip_local_timeline: เส้นเวลาในเซิร์ฟเวอร์คือมุมมองสายน้ำของผู้คนใน %{instance} นี่คือเพื่อนบ้านใกล้เคียงของคุณ!
-      tip_mobile_webapp: หากเบราว์เซอร์มือถือของคุณเสนอให้คุณเพิ่ม Mastodon ไปยังหน้าจอหลักของคุณ คุณจะสามารถรับการแจ้งเตือนแบบผลัก แอปเว็บทำหน้าที่เหมือนแอปเนทีฟในหลาย ๆ ด้าน!
-      tips: เคล็ดลับ
       title: ยินดีต้อนรับ %{name}!
   users:
     follow_limit_reached: คุณไม่สามารถติดตามมากกว่า %{limit} คน
