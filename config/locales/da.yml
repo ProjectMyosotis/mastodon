@@ -2,73 +2,26 @@
 da:
   about:
     about_mastodon_html: 'Fremtidens sociale netværk: Ingen annoncer, ingen virksomhedsovervågning, etisk design og decentralisering! Vær ejer af egne data med Mastodon!'
-    about_this: Om
-    administered_by: 'Håndteres af:'
-    api: API
-    apps: Mobil-apps
-    contact: Kontakt
     contact_missing: Ikke angivet
     contact_unavailable: Utilgængelig
-    documentation: Dokumentation
     hosted_on: Mostodon hostet på %{domain}
-    instance_actor_flash: |
-      Denne konto er en virtuel aktør brugt som repræsentation af selve serveren og ikke en individuel bruger.
-      Den bruges til fællesformål og bør ikke blokeres, medmindre hele instansen ønskes blokeret, i hvilket tilfælde man bør bruge domæneblokering.
-    privacy_policy: Fortrolighedspolitik
-    rules: Serverregler
-    rules_html: 'Nedenfor ses en oversigt over regler, som skal følges, hvis man ønsker at have en konto på denne Mastodon-server:'
-    source_code: Kildekode
-    status_count_after:
-      one: indlæg
-      other: indlæg
-    status_count_before: Som har postet
-    unavailable_content: Modererede servere
-    unavailable_content_description:
-      domain: Server
-      reason: Årsag
-      rejecting_media: 'Mediefiler fra disse servere hverken behandles eller gemmes, og ingen miniaturebilleder vises, hvilket kræver manuelt klik-igennem til originalfilen:'
-      rejecting_media_title: Filtrerede medier
-      silenced: 'Indlæg fra disse servere er skjult i offentlige tidslinjer og konversationer, og der genereres ingen notifikationer fra deres brugerinteraktioner, medmindre man følger dem:'
-      silenced_title: Begrænsede servere
-      suspended: 'Data fra disse servere hverken behandles, gemmes eller udveksles, hvilket umuliggør interaktion eller kommunikation med brugere fra disse servere:'
-      suspended_title: Suspenderede servere
-    unavailable_content_html: Mastodon tillader generelt, at man ser indhold og interagere med brugere fra enhver anden server i fediverset. Disse er undtagelserne, som er implementeret på netop denne server.
-    user_count_after:
-      one: bruger
-      other: brugere
-    user_count_before: Hjem til
-    what_is_mastodon: Hvad er Mastodon?
+    title: Om
   accounts:
-    choices_html: "%{name}s valg:"
-    endorsements_hint: Man kan støtte personer, man følger, fra webgrænsefladen, som så vil fremgå hér.
-    featured_tags_hint: Man kan fremhæve bestemte hashtags, som så vil fremgå hér.
     follow: Følg
     followers:
       one: Følger
       other: Følgere
     following: Følger
     instance_actor_flash: Denne konto er en virtuel aktør repræsenterende selve serveren og ikke en individuel bruger. Den anvendes til fællesformål og bør ikke suspenderes.
-    joined: Tilmeldt %{date}
     last_active: senest aktiv
     link_verified_on: Ejerskab af dette link blev tjekket %{date}
-    media: Medier
-    moved_html: "%{name} er flyttet til %{new_profile_link}:"
-    network_hidden: Denne information er utilgængelig
     nothing_here: Der er intet hér!
-    people_followed_by: Personer, som %{name} følger
-    people_who_follow: Personer, som følger %{name}
     pin_errors:
       following: Man skal allerede følge den person, man ønsker at støtte
     posts:
       one: Indlæg
       other: Indlæg
     posts_tab_heading: Indlæg
-    posts_with_replies: Indlæg og svar
-    roles:
-      bot: Bot
-      group: Gruppe
-    unavailable: Profil utilgængelig
-    unfollow: Følg ikke længere
   admin:
     account_actions:
       action: Udfør handling
@@ -133,7 +86,7 @@ da:
       login_status: Indlogningsstatus
       media_attachments: Medievedhæftninger
       memorialize: Omdan til mindekonto
-      memorialized: Memorialiseret
+      memorialized: Gjort til mindekonto
       memorialized_msg: "%{username} gjort til mindekonto"
       moderation:
         active: Aktiv
@@ -254,6 +207,7 @@ da:
         reject_user: Afvis bruger
         remove_avatar_user: Fjern profilbillede
         reopen_report: Genåbn anmeldelse
+        resend_user: Gensend bekræftelsese-mail
         reset_password_user: Nulstil adgangskode
         resolve_report: Løs anmeldelse
         sensitive_account: Gennemtving sensitiv konto
@@ -312,6 +266,7 @@ da:
         reject_user_html: "%{name} afviste tilmelding fra %{target}"
         remove_avatar_user_html: "%{name} fjernede %{target}s profilbillede"
         reopen_report_html: "%{name} genåbnede anmeldelsen %{target}"
+        resend_user_html: "%{name} gensendte bekræftelses-e-mail for %{target}"
         reset_password_user_html: "%{name} nulstillede adgangskoden for brugeren %{target}"
         resolve_report_html: "%{name} løste anmeldelsen %{target}"
         sensitive_account_html: "%{name} markerede %{target}s medier som sensitive"
@@ -328,6 +283,7 @@ da:
         update_ip_block_html: "%{name} ændrede reglen for IP'en %{target}"
         update_status_html: "%{name} opdaterede indlægget fra %{target}"
         update_user_role_html: "%{name} ændrede %{target}-rolle"
+      deleted_account: slettet konto
       empty: Ingen logger fundet.
       filter_by_action: Filtrér efter handling
       filter_by_user: Filtrér efter bruger
@@ -371,6 +327,7 @@ da:
       listed: Oplistet
       new:
         title: Tilføj ny tilpasset emoji
+      no_emoji_selected: Ingen emoji ændret (da ingen var valgt)
       not_permitted: Ingen tilladelse til at udføre denne handling
       overwrite: Overskriv
       shortcode: Kortkode
@@ -429,11 +386,13 @@ da:
         create: Opret blokering
         hint: Domæneblokeringen vil ikke forhindre oprettelse af kontoposter i databasen, men vil retroaktivt og automatisk føje særlige moderationsmetoder til disse konti.
         severity:
-          desc_html: "<strong>Tavsgørelse</strong> gør kontoens indlæg usynlige for alle, som ikke følger dem. <strong>Suspendering</strong> fjerner alt kontoindhold, medier og profildata. Brug <strong>Ingen</strong>, hvis mediefiler blot ønskes afvist."
+          desc_html: "<strong>Begræns</strong> gør indlæg fra konti på dette domæne usynlige for alle ikke-følger. <strong>Suspendér</strong> fjerner alt indhold, medier og profildata for dette domænes konti fra serveren. Brug <strong>Ingen</strong>, hvis man blot vil afvise mediefiler."
           noop: Ingen
-          silence: Tavsgøre
+          silence: Begræns
           suspend: Suspendere
         title: Ny domæneblokering
+      no_domain_block_selected: Ingen domæneblokeringer ændret (ingen var valgt)
+      not_permitted: Ingen tilladelse til at udføre denne handling
       obfuscate: Slør domænenavn
       obfuscate_hint: Slør delvist domænenavnet på listen, hvis annoncering af listen over domænebegrænsninger er aktiveret
       private_comment: Privat kommentar
@@ -465,6 +424,17 @@ da:
       resolved_dns_records_hint_html: Domænenavnet opløses til flg. MX-domæner, som i sidste ende er ansvarlige for e-mailmodtagelse. Blokering af et MX-domæne blokerer også tilmeldinger fra enhver e-mailadresse på det pågældende MX-domæne, selv hvis det synlige domænenavn er et andet. <strong>Pas på ikke ikke at blokere større e-mailudbydere.</strong>
       resolved_through_html: Opløst via %{domain}
       title: Blokerede e-maildomæner
+    export_domain_allows:
+      no_file: Ingen fil valgt
+    export_domain_blocks:
+      import:
+        description_html: En liste over domæneblokeringer er ved at blive importeret. Gennemgå listen meget nøje, især hvis man ikke selv har oprettet den.
+        existing_relationships_warning: Eksisterende følge-relationer
+        private_comment_description_html: 'For at man lettere kan holde styr på, hvorfra importerede blokeringer kommer, oprettes disse med flg. private kommentar: <q>%{comment}</q>'
+        private_comment_template: Importeret fra %{source} d. %{date}
+        title: Import af domæneblokeringer
+      new:
+        title: Import af domæneblokeringer
     follow_recommendations:
       description_html: "<strong>Følg-anbefalinger hjælpe nye brugere til hurtigt at finde interessant indhold</strong>. Når en bruger ikke har interageret nok med andre til at generere personlige følg-anbefalinger, anbefales disse konti i stedet. De revurderes dagligt baseret på en blanding af konti med de flest nylige engagementer og fleste lokale følger-antal for et givet sprog."
       language: For sprog
@@ -651,7 +621,7 @@ da:
         other: "%{count} brugere"
       categories:
         administration: Håndtering
-        devops: Devops
+        devops: DevOps
         invites: Invitationer
         moderation: Moderering
         special: Speciel
@@ -667,7 +637,8 @@ da:
         administrator: Administrator
         administrator_description: Brugere med denne rolle kan omgå alle tilladelser
         delete_user_data: Slet brugerdata
-        invite_users: Invitere brugere
+        delete_user_data_description: Tillader brugere at slette andre brugeres data straks
+        invite_users: Invitér brugere
         invite_users_description: Tillader brugere at invitere nye personer til serveren
         manage_announcements: Håndtere bekendtgørelser
         manage_announcements_description: Tillader brugere at håndtere bekendtgørelser på serveren
@@ -679,7 +650,7 @@ da:
         manage_custom_emojis_description: Tillader brugere at håndtere tilpassede emojier på serveren
         manage_federation: Håndtere federation
         manage_federation_description: Tillader brugere at blokere eller tillade federation med andre domæner og styre leverbarhed
-        manage_invites: Håndtere invitationer
+        manage_invites: Administrér invitationer
         manage_invites_description: Tillader brugere at gennemse og deaktivere invitationslinks
         manage_reports: Håndtere rapporter
         manage_reports_description: Tillader brugere at vurdere rapporter og, i overensstemmelse hermed, at udføre moderationshandlinger
@@ -701,7 +672,7 @@ da:
         view_audit_log_description: Tillader brugere at se en historik over administrative handlinger på serveren
         view_dashboard: Vis Dashboard
         view_dashboard_description: Tillader brugere at tilgå Dashboard'et og forskellige målinger
-        view_devops: Devops
+        view_devops: DevOps
         view_devops_description: Tillader brugere at tilgå Sidekiq- og pgHero-dashboards
       title: Roller
     rules:
@@ -712,96 +683,67 @@ da:
       empty: Ingen serverregler defineret endnu.
       title: Serverregler
     settings:
-      activity_api_enabled:
-        desc_html: Antal lokalt opslåede indlæg, aktive brugere samt nye tilmeldinger i ugentlige opdelinger
-        title: Offentliggør samlede statistikker vedr. brugeraktivitet i API'en
-      bootstrap_timeline_accounts:
-        desc_html: Adskil flere brugernavne med kommaer. Disse konti vil være garanteret visning i følg-anbefalinger
-        title: Anbefal disse konti til nye brugere
-      contact_information:
-        email: Forretningse-mail
-        username: Kontaktbrugernavn
-      custom_css:
-        desc_html: Ændre udseendet med CSS indlæst på hver side
-        title: Tilpasset CSS
-      default_noindex:
-        desc_html: Påvirker alle brugere, som ikke selv har ændret denne indstilling
-        title: Fravælg som standard søgemaskineindekseringer for brugere
+      about:
+        manage_rules: Håndtér serverregler
+        preamble: Giv dybdegående oplysninger om, hvordan serveren opereres, modereres, finansieres.
+        rules_hint: Der er et dedikeret område for regler, som forventes overholdt af brugerne.
+        title: Om
+      appearance:
+        preamble: Tilpas Mastodon-webgrænsefladen.
+        title: Udseende
+      branding:
+        preamble: Serverens branding adskiller den fra andres i netværket. Oplysningerne kan vises på tværs af div. miljøer, såsom Mastodon-webgrænsefladen, dedikerede applikationer, i-link forhåndsvisninger på andre websteder og i besked-apps mv. Oplysningerne bør derfor være klare og detaljerede, men samtidig kortfattede.
+        title: Branding
+      content_retention:
+        preamble: Styr, hvordan Mastodon gemmer brugergenereret indhold.
+        title: Indholdsopbevaring
+      discovery:
+        follow_recommendations: Følg-anbefalinger
+        preamble: At vise interessant indhold er vitalt ifm. at få nye brugere om bord, som måske ikke kender nogen på Mastodon. Styr, hvordan forskellige opdagelsesfunktioner fungerer på serveren.
+        profile_directory: Profiloversigt
+        public_timelines: Offentlige tidslinjer
+        title: Opdagelse
+        trends: Trends
       domain_blocks:
         all: Til alle
         disabled: Til ingen
-        title: Vis domæneblokeringer
         users: Til indloggede lokale brugere
-      domain_blocks_rationale:
-        title: Vis begrundelse
-      hero:
-        desc_html: Vises på forsiden. Mindst 600x100px anbefales. Hvis ikke opsat, benyttes serverminiaturebillede
-        title: Heltebillede
-      mascot:
-        desc_html: Vises på flere sider. Mindst 293x205px anbefales. Hvis ikke opsat, benyttes standardmaskot
-        title: Maskotbillede
-      peers_api_enabled:
-        desc_html: Domænenavne, denne server er stødt på i fediverset
-        title: Udgiv liste over fundne server i API'en
-      preview_sensitive_media:
-        desc_html: Linkforhåndsvisninger på andre websteder vil vise et miniaturebillede, selv hvis mediet er markeret som sensitivt
-        title: Vis sensitive medier i OpenGraph-forhåndsvisninger
-      profile_directory:
-        desc_html: Tillad brugere at blive fundet
-        title: Aktivér profilmappe
       registrations:
-        closed_message:
-          desc_html: Vises på forside, når tilmeldingsmuligheder er lukket. HTML-tags kan bruges
-          title: Lukket tilmelding-besked
-        require_invite_text:
-          desc_html: Når tilmelding kræver manuel godkendelse, så gør “Hvorfor ønsker du at deltage?” tekstinput obligatorisk i stedet for valgfrit
-          title: Nye brugere afkræves tilmeldingsbegrundelse
+        preamble: Styr, hvem der kan oprette en konto på serveren.
+        title: Registreringer
       registrations_mode:
         modes:
           approved: Tilmeldingsgodkendelse kræves
           none: Ingen kan tilmelde sig
           open: Alle kan tilmelde sig
-        title: Tilmeldingstilstand
-      site_description:
-        desc_html: Introduktionsafsnit på API'en. Beskriv, hvad der gør denne Mastodonserver speciel samt alt andet vigtigt. HTML-tags kan bruges, især <code>&lt;a&gt;</code> og <code>&lt;em&gt;</code>.
-        title: Serverbeskrivelse
-      site_description_extended:
-        desc_html: Et god placering til adfærdskodes, regler, retningslinjer mv., som gør denne server unik. HTML-tags kan bruges
-        title: Tilpasset udvidet information
-      site_short_description:
-        desc_html: Vises på sidebjælke og metatags. Beskriv i et enkelt afsnit, hvad Mastodon er, og hvad der gør denne server speciel.
-        title: Kort serverbeskrivelse
-      site_terms:
-        desc_html: Man kan skrive sin egen fortrolighedspolitik. HTML-tags understøttes
-        title: Tilpasset fortrolighedspolitik
-      site_title: Servernavn
-      thumbnail:
-        desc_html: Bruges til forhåndsvisninger via OpenGraph og API. 1200x630px anbefales
-        title: Serverminiaturebillede
-      timeline_preview:
-        desc_html: Vis link til offentlig tidslinje på indgangssiden og lad API'en tilgå den offentlige tidslinje uden godkendelse
-        title: Tillad ikke-godkendt tilgang til offentlig tidslinje
-      title: Webstedsindstillinger
-      trendable_by_default:
-        desc_html: Bestemt tendensindhold kan stadig udtrykkeligt forbydes
-        title: Tillad tendenser uden forudgående gennemsyn
-      trends:
-        desc_html: Vis offentligt tidligere reviderede hashtags, som pt. trender
-        title: Populært
+      title: Serverindstillinger
     site_uploads:
       delete: Slet uploadet fil
       destroyed_msg: Websteds-upload blev slettet!
     statuses:
+      account: Forfatter
+      application: Applikation
       back_to_account: Retur til kontoside
       back_to_report: Retur til anmeldelsesside
       batch:
         remove_from_report: Fjern fra anmeldelse
         report: Anmeldelse
       deleted: Slettet
+      favourites: Favoritter
+      history: Versionshistorik
+      in_reply_to: Svarer på
+      language: Sprog
       media:
         title: Medier
+      metadata: Metadata
       no_status_selected: Ingen indlæg ændret (ingen valgt)
+      open: Åbn indlæg
+      original_status: Oprindeligt indlæg
+      reblogs: Genblogninger
+      status_changed: Indlæg ændret
       title: Kontoindlæg
+      trending: Populære
+      visibility: Synlighed
       with_media: Med medier
     strikes:
       actions:
@@ -841,6 +783,9 @@ da:
         description_html: Disse er links, som pt. deles meget af konti, som serveren ser indlæg fra. Det kan hjælpe ens brugere med at finde ud af, hvad der sker i verden. Ingen links vises offentligt, før man godkender udgiveren. Man kan også tillade/afvise individuelle links.
         disallow: Tillad ikke link
         disallow_provider: Tillad ikke udgiver
+        no_link_selected: Intet link ændret (da intet var valgt)
+        publishers:
+          no_publisher_selected: Ingen udgiver ændret (da ingen var valgt)
         shared_by_over_week:
           one: Delt af én person den seneste uge
           other: Delt af %{count} personer den seneste uge
@@ -860,6 +805,7 @@ da:
         description_html: Disse er indlæg, serveren kender til, som pt. deles og favoritmarkeres meget. Det kan hjælpe nye og tilbagevendende brugere til at finde flere personer at følge. Ingen indlæg vises offentligt, før man godkender forfatteren, samt denne tillader sin konto at blive foreslået andre. Man kan også tillade/afvise individuelle indlæg.
         disallow: Tillad ikke indlæg
         disallow_account: Tillad ikke forfatter
+        no_status_selected: Intet tendensindlæg ændret (da intet var valgt)
         not_discoverable: Forfatteren har ikke valgt at kunne findes
         shared_by:
           one: Delt eller favoritmarkeret én gang
@@ -875,6 +821,7 @@ da:
           tag_uses_measure: anvendelser i alt
         description_html: Disse er hashtags, som pt. vises i en masse indlæg, som serveren ser. Det kan hjælpe brugerne til at finde ud af, hvad folk taler mest om pt. Ingen hashtags vises offentligt, før man godkender dem.
         listable: Kan foreslås
+        no_tag_selected: Intet tag ændret (da intet var valgt)
         not_listable: Foreslås ikke
         not_trendable: Vises ikke under tendenser
         not_usable: Kan ikke anvendes
@@ -980,12 +927,12 @@ da:
     warning: Vær meget påpasselig med disse data. Del dem aldrig med nogen!
     your_token: Dit adgangstoken
   auth:
-    apply_for_account: Kom på ventelisten
+    apply_for_account: Anmod om en konto
     change_password: Adgangskode
     delete_account: Slet konto
     delete_account_html: Ønsker du at slette din konto, kan du <a href="%{path}">gøre dette hér</a>. Du vil blive bedt om bekræftelse.
     description:
-      prefix_invited_by_user: "@%{name} inviterer dig til at deltage på denne Mastodon-server!"
+      prefix_invited_by_user: "@%{name} inviterer dig ind på denne Mastodon-server!"
       prefix_sign_up: Tilmeld dig Mastodon i dag!
       suffix: Du vil med en konto kunne følge personer, indsende opdateringer og udveksle beskeder med brugere fra enhver Mastodon-server, og meget mere!
     didnt_get_confirmation: Ikke modtaget nogle bekræftelsesinstruktioner?
@@ -1198,9 +1145,6 @@ da:
         hint: Dette filter gælder for udvalgte, individuelle indlæg uanset andre kriterier. Flere indlæg kan føjes til filteret via webfladen.
         title: Filtrerede indlæg
   footer:
-    developers: Udviklere
-    more: Mere…
-    resources: Ressourcer
     trending_now: Trender lige nu
   generic:
     all: Alle
@@ -1228,6 +1172,7 @@ da:
     invalid_markup: 'indeholder ugyldig HTML-markup: %{error}'
   imports:
     errors:
+      invalid_csv_file: 'Ugyldig CSV-fil. Fejl: %{error}'
       over_rows_processing_limit: indeholder mere end %{count} rækker
     modes:
       merge: Sammenflet
@@ -1243,7 +1188,6 @@ da:
       following: Følgningsliste
       muting: Tavsgørelsesliste
     upload: Upload
-  in_memoriam_html: Til minde om.
   invites:
     delete: Deaktivér
     expired: Udløbet
@@ -1322,6 +1266,8 @@ da:
     carry_blocks_over_text: Denne bruger er flyttet fra %{acct}, som du har haft blokeret.
     carry_mutes_over_text: Denne bruger er flyttet fra %{acct}, som du har haft tavsgjort.
     copy_account_note_text: 'Denne bruger er flyttet fra %{acct}, hvor dine tidligere noter om dem var:'
+  navigation:
+    toggle_menu: Åbn/luk menu
   notification_mailer:
     admin:
       report:
@@ -1423,22 +1369,7 @@ da:
     remove_selected_follows: Følg ikke længere valgte brugere
     status: Kontostatus
   remote_follow:
-    acct: Angiv det brugernavn@domæne, hvorfra du vil ageres
     missing_resource: Nødvendige omdirigerings-URL til kontoen ikke fundet
-    no_account_html: Har ingen konto? Der kan <a href='%{sign_up_path}' target='_blank'>oprettes én hér</a>
-    proceed: Fortsæt for at følge
-    prompt: 'Du er ved at følge:'
-    reason_html: "<strong>Hvorfor er dette trin nødvendigt?</strong> <code>%{instance}</code> er måske ikke den server, hvorpå man er registreret, så man skal først omdirigeres til sin hjemmeserver."
-  remote_interaction:
-    favourite:
-      proceed: Fortsæt for at favoritmarkere
-      prompt: 'Favoritmarkere dette indlæg:'
-    reblog:
-      proceed: Fortsæt for at booste
-      prompt: 'Booste dette indlæg:'
-    reply:
-      proceed: Fortsæt for at besvare
-      prompt: 'Besvare dette indlæg:'
   reports:
     errors:
       invalid_rules: refererer ikke til gyldige regler
@@ -1456,7 +1387,7 @@ da:
     browser: Browser
     browsers:
       alipay: Alipay
-      blackberry: Blackberry
+      blackberry: BlackBerry
       chrome: Chrome
       edge: Microsoft Edge
       electron: Electron
@@ -1470,7 +1401,7 @@ da:
       phantom_js: PhantomJS
       qq: QQ Browser
       safari: Safari
-      uc_browser: UCbrowser
+      uc_browser: UC Browser
       weibo: Weibo
     current_session: Aktuelle session
     description: "%{browser} på %{platform}"
@@ -1479,8 +1410,7 @@ da:
     platforms:
       adobe_air: Adobe Air
       android: Android
-      blackberry: Blackberry
-      chrome_os: Chrome OS
+      chrome_os: ChromeOS
       firefox_os: Firefox OS
       ios: iOS
       linux: Linux
@@ -1691,6 +1621,7 @@ da:
       edit_profile_step: Man kan tilpasse sin profil ved at uploade profilfoto, overskrift, ændre visningsnavn mv. Ønskes nye følgere vurderet, før de må følge dig, kan kontoen låses.
       explanation: Her er nogle råd for at få dig i gang
       final_action: Begynd at poste
+      final_step: 'Begynd at poste! Selv uden følgere vil offentlige indlæg kunne ses af andre f.eks. på den lokale tidslinje og i hashtags. Man kan introducere sig selv via hastagget #introductions.'
       full_handle: Dit fulde brugernavn
       full_handle_hint: Dette er, hvad du oplyser til dine venner, så de kan sende dig beskeder eller følge dig fra andre server.
       subject: Velkommen til Mastodon
@@ -1702,7 +1633,7 @@ da:
     seamless_external_login: Du er logget ind via en ekstern tjeneste, så adgangskode- og e-mailindstillinger er utilgængelige.
     signed_in_as: 'Logget ind som:'
   verification:
-    explanation_html: 'Du kan <strong>bekræfte dig selv som ejer af linkene i din profilmetadata</strong>. For at gøre det, skal det linkede websted indeholde et link pegende tilbage til din Mastodon-profil. Returlinket <strong>skal</strong> have en <code>rel="mig"</code>-attribut. Linkets tekstindhold betyder ikke noget. Her er et eksempel:'
+    explanation_html: 'Du kan <strong>bekræfte dig selv som ejer af linkene i din profilmetadata</strong>. For at gøre det, skal det linkede websted indeholde et link pegende tilbage til din Mastodon-profil. Returlinket <strong>skal</strong> have en <code>rel="me"</code>-attribut. Linkets tekstindhold betyder ikke noget. Her er et eksempel:'
     verification: Bekræftelse
   webauthn_credentials:
     add: Tilføj ny sikkerhedsnøgle

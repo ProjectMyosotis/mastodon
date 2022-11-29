@@ -2,73 +2,26 @@
 it:
   about:
     about_mastodon_html: 'Il social network del futuro: niente pubblicità, niente controllo da parte di qualche azienda privata, design etico e decentralizzazione! Con Mastodon il proprietario dei tuoi dati sei tu!'
-    about_this: A proposito di questo server
-    administered_by: 'Amministrato da:'
-    api: API
-    apps: Applicazioni per dispositivi mobili
-    contact: Contatti
     contact_missing: Non impostato
     contact_unavailable: N/D
-    documentation: Documentazione
     hosted_on: Mastodon ospitato su %{domain}
-    instance_actor_flash: |
-      Questo account è un attore virtuale utilizzato per rappresentare il server stesso e non un particolare utente.
-      È utilizzato per scopi di federazione e non dovrebbe essere bloccato a meno che non si voglia bloccare l'intera istanza: in questo caso si dovrebbe utilizzare un blocco di dominio.
-    privacy_policy: Politica sulla Privacy
-    rules: Regole del server
-    rules_html: 'Di seguito è riportato un riassunto delle regole che devi seguire se vuoi avere un account su questo server di Mastodon:'
-    source_code: Codice sorgente
-    status_count_after:
-      one: stato
-      other: stati
-    status_count_before: Che hanno pubblicato
-    unavailable_content: Server moderati
-    unavailable_content_description:
-      domain: Server
-      reason: 'Motivo:'
-      rejecting_media: I file multimediali di questo server non saranno elaborati e non verranno visualizzate miniature, che richiedono clic manuale sull'altro server.
-      rejecting_media_title: Media filtrati
-      silenced: 'I messaggi da questi server saranno nascosti nelle timeline e nelle conversazioni pubbliche, e nessuna notifica verrà generata dalle interazioni dei loro utenti, a meno che non li stai seguendo:'
-      silenced_title: Server silenziati
-      suspended: 'Nessun dato da questi server sarà elaborato, memorizzato o scambiato, rendendo impossibile qualsiasi interazione o comunicazione con gli utenti di questi server:'
-      suspended_title: Server sospesi
-    unavailable_content_html: Mastodon generalmente permette di visualizzare i contenuti e interagire con gli utenti di qualsiasi altro server nel fediverse. Queste sono le eccezioni che sono state create su questo specifico server.
-    user_count_after:
-      one: utente
-      other: utenti
-    user_count_before: Home di
-    what_is_mastodon: Che cos'è Mastodon?
+    title: Info
   accounts:
-    choices_html: 'Suggerimenti da %{name}:'
-    endorsements_hint: 'Puoi segnalare persone che segui e che apprezzi dall''interfaccia web: saranno mostrate qui.'
-    featured_tags_hint: Puoi mettere in evidenza determinati hashtag che verranno visualizzati qui.
     follow: Segui
     followers:
       one: Seguace
       other: Seguaci
     following: Segui
     instance_actor_flash: Questo account è un attore virtuale usato per rappresentare il server stesso e non un singolo utente. Viene utilizzato per scopi federativi e non dovrebbe essere sospeso.
-    joined: Dal %{date}
     last_active: ultima attività
     link_verified_on: La proprietà di questo link è stata controllata il %{date}
-    media: Media
-    moved_html: "%{name} si è spostato su %{new_profile_link}:"
-    network_hidden: Questa informazione non e' disponibile
     nothing_here: Qui non c'è nulla!
-    people_followed_by: Persone seguite da %{name}
-    people_who_follow: Persone che seguono %{name}
     pin_errors:
       following: Devi gia seguire la persona che vuoi promuovere
     posts:
       one: Toot
       other: Toot
     posts_tab_heading: Toot
-    posts_with_replies: Toot e risposte
-    roles:
-      bot: Bot
-      group: Gruppo
-    unavailable: Profilo non disponibile
-    unfollow: Non seguire più
   admin:
     account_actions:
       action: Esegui azione
@@ -254,6 +207,7 @@ it:
         reject_user: Rifiuta Utente
         remove_avatar_user: Elimina avatar
         reopen_report: Riapri report
+        resend_user: Invia di nuovo l'email di conferma
         reset_password_user: Reimposta password
         resolve_report: Risolvi report
         sensitive_account: Contrassegna il media nel tuo profilo come sensibile
@@ -312,6 +266,7 @@ it:
         reject_user_html: "%{name} ha rifiutato la registrazione da %{target}"
         remove_avatar_user_html: "%{name} ha rimosso l'immagine profilo di %{target}"
         reopen_report_html: "%{name} ha riaperto il rapporto %{target}"
+        resend_user_html: "%{name} inviata nuovamente l'email di conferma per %{target}"
         reset_password_user_html: "%{name} ha reimpostato la password dell'utente %{target}"
         resolve_report_html: "%{name} ha risolto il rapporto %{target}"
         sensitive_account_html: "%{name} ha segnato il media di %{target} come sensibile"
@@ -328,6 +283,7 @@ it:
         update_ip_block_html: "%{name} ha cambiato la regola per l'IP %{target}"
         update_status_html: "%{name} ha aggiornato lo status di %{target}"
         update_user_role_html: "%{name} ha modificato il ruolo %{target}"
+      deleted_account: account eliminato
       empty: Nessun log trovato.
       filter_by_action: Filtra per azione
       filter_by_user: Filtra per utente
@@ -371,6 +327,7 @@ it:
       listed: Elencato
       new:
         title: Aggiungi nuovo emoji personalizzato
+      no_emoji_selected: Nessuna emoji è stata cambiata in quanto nessuna è stata selezionata
       not_permitted: Non hai il permesso di eseguire questa azione
       overwrite: Sovrascrivi
       shortcode: Scorciatoia
@@ -416,6 +373,8 @@ it:
       add_new: Dominio nella whitelist
       created_msg: Il dominio è stato inserito nella whitelist
       destroyed_msg: Il dominio è stato eliminato dalla whitelist
+      export: Esportare
+      import: Importare
       undo: Elimina dalla whitelist
     domain_blocks:
       add_new: Aggiungi nuovo
@@ -425,15 +384,19 @@ it:
       edit: Modifica blocco di dominio
       existing_domain_block: Hai già imposto limiti più severi a %{name}.
       existing_domain_block_html: Hai già impostato limitazioni più stringenti su %{name}, dovresti <a href="%{unblock_url}">sbloccarlo</a> prima.
+      export: Esportare
+      import: Importare
       new:
         create: Crea blocco
         hint: Il blocco dominio non previene la creazione di utenti nel database, ma applicherà automaticamente e retroattivamente metodi di moderazione specifici su quegli account.
         severity:
-          desc_html: "<strong>Silenzia</strong> rende i post di questo account invisibili a chiunque non lo stia seguendo. <strong>Sospendi</strong> elimina tutti i contenuti, media e dati del profilo dell'account. Usa <strong>Nessuno</strong> se vuoi solo bloccare i file media."
+          desc_html: "<strong>Limita</strong> renderà invisibili i post degli account di questo dominio a chiunque non li stia seguendo. <strong>Sospendi</strong> rimuoverà tutti i contenuti, gli elementi multimediali e i dati del profilo per gli account di questo dominio dal tuo server. Utilizza <strong>Nessuno</strong> se desideri solo rifiutare i file multimediali."
           noop: Nessuno
-          silence: Silenzia
+          silence: Limita
           suspend: Sospendi
         title: Nuovo blocco dominio
+      no_domain_block_selected: Nessun blocco di dominio è stato modificato perché non ne è stato selezionato nessuno
+      not_permitted: Non hai il permesso di eseguire questa azione
       obfuscate: Nascondi nome di dominio
       obfuscate_hint: Nascondere parzialmente il nome di dominio, se è abilitata la visualizzazione pubblica dell'elenco delle limitazioni di dominio
       private_comment: Commento privato
@@ -465,6 +428,20 @@ it:
       resolved_dns_records_hint_html: Il nome di dominio si risolve ai seguenti domini MX, che sono in ultima analisi responsabili per l'accettazione di e-mail. Il blocco di un dominio MX bloccherà le iscrizioni da qualsiasi indirizzo e-mail che utilizza lo stesso dominio MX, anche se il nome di dominio visibile è diverso. <strong>Fai attenzione a non bloccare i principali provider di posta elettronica.</strong>
       resolved_through_html: Risolto attraverso %{domain}
       title: Lista nera email
+    export_domain_allows:
+      new:
+        title: Importare i permessi di dominio
+      no_file: Nessun file selezionato
+    export_domain_blocks:
+      import:
+        description_html: Stai per importare un elenco di blocchi di domini. Si prega di rivedere questo elenco con molta attenzione, soprattutto se non si è creato personalmente questo elenco.
+        existing_relationships_warning: Relazioni di connessioni esistenti
+        private_comment_description_html: 'Per aiutarti a tenere traccia della provenienza dei blocchi importati, i blocchi importati verranno creati con il seguente commento privato: <q>%{comment}</q>'
+        private_comment_template: Importato da %{source} il %{date}
+        title: Importare i blocchi di dominio
+      new:
+        title: Importare i blocchi di dominio
+      no_file: Nessun file selezionato
     follow_recommendations:
       description_html: "<strong>I consigli su chi seguire aiutano i nuovi utenti a trovare rapidamente dei contenuti interessanti</strong>. Quando un utente non ha interagito abbastanza con altri per avere dei consigli personalizzati, vengono consigliati questi account. Sono ricalcolati ogni giorno da un misto di account con le più alte interazioni recenti e con il maggior numero di seguaci locali per una data lingua."
       language: Per lingua
@@ -651,7 +628,7 @@ it:
         other: "%{count} utenti"
       categories:
         administration: Amministrazione
-        devops: Devops
+        devops: DevOps
         invites: Inviti
         moderation: Moderazione
         special: Speciale
@@ -702,7 +679,7 @@ it:
         view_audit_log_description: Consente agli utenti di vedere una cronologia delle azioni amministrative sul server
         view_dashboard: Mostra dashboard
         view_dashboard_description: Consente agli utenti di accedere alla dashboard e alle varie metriche
-        view_devops: Devops
+        view_devops: DevOps
         view_devops_description: Consente agli utenti di accedere alle dashboard Sidekiq e pgHero
       title: Ruoli
     rules:
@@ -713,96 +690,67 @@ it:
       empty: Non sono ancora state definite regole del server.
       title: Regole del server
     settings:
-      activity_api_enabled:
-        desc_html: Conteggi degli status pubblicati localmente, degli utenti attivi e delle nuove registrazioni in gruppi settimanali
-        title: Pubblica statistiche aggregate circa l'attività dell'utente
-      bootstrap_timeline_accounts:
-        desc_html: Separa i nomi utente con virgola. Funziona solo con account locali e non bloccati. Quando vuoto, valido per tutti gli amministratori locali.
-        title: Seguiti predefiniti per i nuovi utenti
-      contact_information:
-        email: E-mail di lavoro
-        username: Nome utente del contatto
-      custom_css:
-        desc_html: Modifica l'aspetto con il CSS caricato in ogni pagina
-        title: CSS personalizzato
-      default_noindex:
-        desc_html: Influisce su tutti gli utenti che non hanno cambiato questa impostazione
-        title: Esclude gli utenti dall'indicizzazione dei motori di ricerca per impostazione predefinita
+      about:
+        manage_rules: Gestisci le regole del server
+        preamble: Fornire informazioni approfondite su come, il server, venga gestito, moderato e finanziato.
+        rules_hint: C'è un'area dedicata per le regole che i tuoi utenti dovrebbero rispettare.
+        title: Info
+      appearance:
+        preamble: Personalizza l'interfaccia web di Mastodon.
+        title: Aspetto
+      branding:
+        preamble: 'Il marchio del tuo server lo differenzia dagli altri server nella rete. Queste informazioni possono essere visualizzate in una varietà di ambienti, come: l''interfaccia web di Mastodon, le applicazioni native, nelle anteprime dei collegamenti su altri siti Web e all''interno delle app di messaggistica e così via. Per questo motivo, è meglio mantenere queste informazioni chiare, brevi e concise.'
+        title: Marchio
+      content_retention:
+        preamble: Controlla come vengono memorizzati i contenuti generati dall'utente in Mastodon.
+        title: Conservazione dei contenuti
+      discovery:
+        follow_recommendations: Segui le raccomandazioni
+        preamble: La comparsa di contenuti interessanti è determinante per l'arrivo di nuovi utenti che potrebbero non conoscere nessuno su Mastodon. Controlla in che modo varie funzionalità di scoperta funzionano sul tuo server.
+        profile_directory: Directory del profilo
+        public_timelines: Timeline pubbliche
+        title: Scopri
+        trends: Tendenze
       domain_blocks:
         all: A tutti
         disabled: A nessuno
-        title: Mostra blocchi di dominio
         users: Agli utenti locali connessi
-      domain_blocks_rationale:
-        title: Mostra motivazione
-      hero:
-        desc_html: Mostrata nella pagina iniziale. Almeno 600x100 px consigliati. Se non impostata, sarà usato il thumbnail del server
-        title: Immagine dell'eroe
-      mascot:
-        desc_html: Mostrata su più pagine. Almeno 293×205px consigliati. Se non impostata, sarò usata la mascotte predefinita
-        title: Immagine della mascotte
-      peers_api_enabled:
-        desc_html: Nomi di dominio che questo server ha incontrato nel fediverse
-        title: Pubblica elenco dei server scoperti
-      preview_sensitive_media:
-        desc_html: Le anteprime dei link su altri siti mostreranno un thumbnail anche se il media è segnato come sensibile
-        title: Mostra media sensibili nella anteprime OpenGraph
-      profile_directory:
-        desc_html: Permetti agli utenti di essere trovati
-        title: Attiva directory dei profili
       registrations:
-        closed_message:
-          desc_html: Mostrato nella pagina iniziale quando le registrazioni sono chiuse. Puoi usare tag HTML
-          title: Messaggio per registrazioni chiuse
-        require_invite_text:
-          desc_html: Quando le iscrizioni richiedono l'approvazione manuale, rendere la richiesta “Perché si desidera iscriversi?” obbligatoria invece che opzionale
-          title: Richiedi ai nuovi utenti di rispondere alla richiesta di motivazione per l'iscrizione
+        preamble: Controlla chi può creare un account sul tuo server.
+        title: Registrazioni
       registrations_mode:
         modes:
           approved: Approvazione richiesta per le iscrizioni
           none: Nessuno può iscriversi
           open: Chiunque può iscriversi
-        title: Modalità di registrazione
-      site_description:
-        desc_html: Paragrafo introduttivo nella pagina iniziale. Descrive ciò che rende speciale questo server Mastodon e qualunque altra cosa sia importante dire. Potete usare marcatori HTML, in particolare <code>&lt;a&gt;</code> e <code>&lt;em&gt;</code>.
-        title: Descrizione del server
-      site_description_extended:
-        desc_html: Un posto adatto le regole di comportamento, linee guida e altre cose specifiche del vostro server. Potete usare marcatori HTML
-        title: Informazioni estese personalizzate
-      site_short_description:
-        desc_html: Mostrato nella barra laterale e nei tag meta. Descrive in un paragrafo che cos'è Mastodon e che cosa rende questo server speciale. Se vuoto, sarà usata la descrizione predefinita del server.
-        title: Breve descrizione del server
-      site_terms:
-        desc_html: Puoi scrivere la tua politica sulla privacy. Puoi usare i tag HTML
-        title: Politica sulla privacy personalizzata
-      site_title: Nome del server
-      thumbnail:
-        desc_html: Usato per anteprime tramite OpenGraph e API. 1200x630px consigliati
-        title: Thumbnail del server
-      timeline_preview:
-        desc_html: Mostra la timeline pubblica sulla pagina iniziale
-        title: Anteprima timeline
-      title: Impostazioni sito
-      trendable_by_default:
-        desc_html: I contenuti di tendenza specifici possono ancora essere esplicitamente vietati
-        title: Consenti tendenze senza controllo preliminare
-      trends:
-        desc_html: Visualizza pubblicamente gli hashtag precedentemente esaminati che sono attualmente in tendenza
-        title: Hashtag di tendenza
+      title: Impostazioni del server
     site_uploads:
       delete: Cancella il file caricato
       destroyed_msg: Caricamento sito eliminato!
     statuses:
+      account: Autore
+      application: Applicazione
       back_to_account: Torna alla pagina dell'account
       back_to_report: Torna alla pagina del report
       batch:
         remove_from_report: Rimuovi dal report
         report: Rapporto
       deleted: Cancellato
+      favourites: Preferiti
+      history: Cronologia delle versioni
+      in_reply_to: In risposta a
+      language: Lingua
       media:
         title: Media
+      metadata: Metadati
       no_status_selected: Nessun status è stato modificato perché nessuno era stato selezionato
+      open: Apri il post
+      original_status: Post originale
+      reblogs: Condivisioni
+      status_changed: Post modificato
       title: Gli status dell'account
+      trending: Di tendenza
+      visibility: Visibilità
       with_media: con media
     strikes:
       actions:
@@ -842,6 +790,9 @@ it:
         description_html: Questi sono collegamenti che attualmente vengono molto condivisi dagli account di cui il server vede i post. Può aiutare i tuoi utenti a scoprire cosa sta succedendo nel mondo. Nessun link viene visualizzato pubblicamente finché non si approva chi lo pubblica. È anche possibile permettere o rifiutare i singoli collegamenti.
         disallow: Non consentire link
         disallow_provider: Non consentire editore
+        no_link_selected: Nessun collegamento è stato modificato in quanto nessuno è stato selezionato
+        publishers:
+          no_publisher_selected: Nessun editore è stato modificato in quanto nessuno è stato selezionato
         shared_by_over_week:
           one: Condiviso da una persona nell'ultima settimana
           other: Condiviso da %{count} persone nell'ultima settimana
@@ -861,6 +812,7 @@ it:
         description_html: Questi sono post noti al tuo server che sono attualmente molto condivisi e preferiti. Può aiutare i tuoi utenti (nuovi e non) a trovare più persone da seguire. Nessun post viene visualizzato pubblicamente fino a quando si approva l'autore, e l'autore permette che il suo account sia suggerito ad altri. È anche possibile permettere o rifiutare singoli post.
         disallow: Non consentire post
         disallow_account: Non consentire autore
+        no_status_selected: Nessun post di tendenza è stato modificato in quanto nessuno è stato selezionato
         not_discoverable: L'autore non ha optato di essere scopribile
         shared_by:
           one: Condiviso o preferito una volta
@@ -876,6 +828,7 @@ it:
           tag_uses_measure: usi totali
         description_html: Questi sono hashtag che attualmente compaiono in molti post che il tuo server vede. Può aiutare i tuoi utenti a scoprire di cosa le persone stanno parlando di più al momento. Nessun hashtag viene visualizzato pubblicamente finché non lo approvi.
         listable: Suggeribile
+        no_tag_selected: Nessun tag è stato modificato in quanto nessuno è stato selezionato
         not_listable: Non sarà suggerito
         not_trendable: Non apparirà nelle tendenze
         not_usable: Inutilizzabile
@@ -983,7 +936,7 @@ it:
     warning: Fa' molta attenzione con questi dati. Non fornirli mai a nessun altro!
     your_token: Il tuo token di accesso
   auth:
-    apply_for_account: Mettiti in lista d'attesa
+    apply_for_account: Richiedi un account
     change_password: Password
     delete_account: Elimina account
     delete_account_html: Se desideri cancellare il tuo account, puoi <a href="%{path}">farlo qui</a>. Ti sarà chiesta conferma.
@@ -1201,9 +1154,6 @@ it:
         hint: Questo filtro si applica a singoli post indipendentemente da altri criteri. Puoi aggiungere più post a questo filtro dall'interfaccia Web.
         title: Post filtrati
   footer:
-    developers: Sviluppatori
-    more: Altro…
-    resources: Risorse
     trending_now: Di tendenza ora
   generic:
     all: Tutto
@@ -1231,6 +1181,7 @@ it:
     invalid_markup: 'contiene markup HTML non valido: %{error}'
   imports:
     errors:
+      invalid_csv_file: 'File CSV non valido. Errore: %{error}'
       over_rows_processing_limit: contiene più di %{count} righe
     modes:
       merge: Fondi
@@ -1246,7 +1197,6 @@ it:
       following: Lista dei seguiti
       muting: Lista dei silenziati
     upload: Carica
-  in_memoriam_html: In Memoriam.
   invites:
     delete: Disattiva
     expired: Scaduto
@@ -1325,6 +1275,8 @@ it:
     carry_blocks_over_text: Questo utente si è spostato da %{acct} che hai bloccato.
     carry_mutes_over_text: Questo utente si è spostato da %{acct} che hai silenziato.
     copy_account_note_text: 'Questo utente si è spostato da %{acct}, ecco le tue note precedenti su di loro:'
+  navigation:
+    toggle_menu: Cambia menu
   notification_mailer:
     admin:
       report:
@@ -1426,22 +1378,7 @@ it:
     remove_selected_follows: Smetti di seguire gli utenti selezionati
     status: Stato dell'account
   remote_follow:
-    acct: Inserisci il tuo username@dominio da cui vuoi seguire questo utente
     missing_resource: Impossibile trovare l'URL di reindirizzamento richiesto per il tuo account
-    no_account_html: Non hai un account? Puoi <a href='%{sign_up_path}' target='_blank'>iscriverti qui</a>
-    proceed: Conferma
-    prompt: 'Stai per seguire:'
-    reason_html: "<strong>Perchè questo passo è necessario?</strong> <code>%{instance}</code> potrebbe non essere il server nel quale tu sei registrato, quindi dobbiamo reindirizzarti prima al tuo server."
-  remote_interaction:
-    favourite:
-      proceed: Continua per segnare come apprezzato
-      prompt: 'Vuoi segnare questo post come apprezzato:'
-    reblog:
-      proceed: Continua per condividere
-      prompt: 'Vuoi condividere questo post:'
-    reply:
-      proceed: Continua per rispondere
-      prompt: 'Vuoi rispondere a questo post:'
   reports:
     errors:
       invalid_rules: non fa riferimento a regole valide
@@ -1459,7 +1396,7 @@ it:
     browser: Browser
     browsers:
       alipay: Alipay
-      blackberry: Blackberry
+      blackberry: BlackBerry
       chrome: Chrome
       edge: Microsoft Edge
       electron: Electron
@@ -1473,7 +1410,7 @@ it:
       phantom_js: PhantomJS
       qq: QQ Browser
       safari: Safari
-      uc_browser: UCBrowser
+      uc_browser: UC Browser
       weibo: Weibo
     current_session: Sessione corrente
     description: "%{browser} su %{platform}"
@@ -1482,7 +1419,7 @@ it:
     platforms:
       adobe_air: Adobe Air
       android: Android
-      blackberry: Blackberry
+      blackberry: BlackBerry
       chrome_os: ChromeOS
       firefox_os: Firefox OS
       ios: iOS
@@ -1652,7 +1589,7 @@ it:
       subject: Il tuo archivio è pronto per essere scaricato
       title: Esportazione archivio
     suspicious_sign_in:
-      change_password: cambia la tua password
+      change_password: cambiare la tua password
       details: 'Questi sono i dettagli del tentativo di accesso:'
       explanation: Abbiamo rilevato un accesso al tuo account da un nuovo indirizzo IP.
       further_actions_html: Se non eri tu, ti consigliamo di %{action} subito e di abilitare l'autenticazione a due fattori per mantenere il tuo account al sicuro.
@@ -1693,7 +1630,7 @@ it:
       edit_profile_action: Configura profilo
       edit_profile_step: Puoi personalizzare il tuo profilo caricando un'immagine del profilo, cambiare il tuo nome e altro ancora. Puoi scegliere di esaminare i nuovi seguaci prima che loro siano autorizzati a seguirti.
       explanation: Ecco alcuni suggerimenti per iniziare
-      final_action: Inizia a postare
+      final_action: Inizia a pubblicare
       final_step: 'Inizia a pubblicare! Anche senza seguaci, i tuoi post pubblici possono essere visti da altri, ad esempio sulla timeline locale o negli hashtag. Potresti presentarti con l''hashtag #presentazione.'
       full_handle: Il tuo nome utente completo
       full_handle_hint: Questo è ciò che diresti ai tuoi amici in modo che possano seguirti o contattarti da un altro server.
