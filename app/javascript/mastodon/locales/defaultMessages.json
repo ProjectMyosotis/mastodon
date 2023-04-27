@@ -249,7 +249,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Edited {count, plural, one {{count} time} other {{count} times}}",
+        "defaultMessage": "Edited {count, plural, one {# time} other {# times}}",
         "id": "status.edited_x_times"
       },
       {
@@ -299,7 +299,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "{count, plural, one {{counter} person} other {{counter} people}} in the past {days, plural, one {day} other {{days} days}}",
+        "defaultMessage": "{count, plural, one {{counter} person} other {{counter} people}} in the past {days, plural, one {day} other {# days}}",
         "id": "trends.counter_by_accounts"
       }
     ],
@@ -1681,7 +1681,7 @@
         "id": "search_results.hashtags"
       },
       {
-        "defaultMessage": "{count, number} {count, plural, one {result} other {results}}",
+        "defaultMessage": "{count, plural, one {# result} other {# results}}",
         "id": "search_results.total"
       }
     ],
@@ -3148,7 +3148,7 @@
         "id": "report_notification.categories.violation"
       },
       {
-        "defaultMessage": "{count, plural, one {{count} post} other {{count} posts}} attached",
+        "defaultMessage": "{count, plural, one {# post} other {# posts}} attached",
         "id": "report_notification.attached_statuses"
       }
     ],
@@ -3190,6 +3190,10 @@
   },
   {
     "descriptors": [
+      {
+        "defaultMessage": "Unfortunately, no results can be shown right now. You can try using search or browsing the explore page to find people to follow, or try again later.",
+        "id": "onboarding.follows.empty"
+      },
       {
         "defaultMessage": "Popular on Mastodon",
         "id": "onboarding.follows.title"
@@ -3269,7 +3273,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "I'm {username} on Mastodon! Come follow me at {url}",
+        "defaultMessage": "I'm {username} on #Mastodon! Come follow me at {url}",
         "id": "onboarding.share.message"
       },
       {
@@ -3287,6 +3291,18 @@
       {
         "defaultMessage": "Let people know how they can find you on Mastodon!",
         "id": "onboarding.share.lead"
+      },
+      {
+        "defaultMessage": "<strong>Did you know?</strong> You can verify your account by putting a link to your Mastodon profile on your own website and adding the website to your profile. No fees or documents necessary!",
+        "id": "onboarding.tips.verification"
+      },
+      {
+        "defaultMessage": "<strong>Did you know?</strong> If you feel like {domain} is not a great server choice for you in the future, you can move to another Mastodon server without losing your followers. You can even host your own server!",
+        "id": "onboarding.tips.migration"
+      },
+      {
+        "defaultMessage": "<strong>Did you know?</strong> You can secure your account by setting up two-factor authentication in your account settings. It works with any TOTP app of your choice, no phone number necessary!",
+        "id": "onboarding.tips.2fa"
       },
       {
         "defaultMessage": "Possible next steps:",
@@ -3822,7 +3838,7 @@
         "id": "status.show_less_all"
       },
       {
-        "defaultMessage": "{user} posted {attachmentCount, plural, one {an attachment} other {{attachmentCount} attachments}}",
+        "defaultMessage": "{user} posted {attachmentCount, plural, one {an attachment} other {# attachments}}",
         "id": "status.title.with_attachments"
       },
       {
