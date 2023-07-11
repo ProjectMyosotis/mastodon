@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 import { WordmarkLogo } from 'mastodon/components/logo';
 import NavigationPortal from 'mastodon/components/navigation_portal';
-import { timelinePreview, showTrends } from 'mastodon/initial_state';
+import { timelinePreview, trendsEnabled } from 'mastodon/initial_state';
 
 import ColumnLink from './column_link';
 import DisabledAccountBanner from './disabled_account_banner';
@@ -20,8 +20,7 @@ const messages = defineMessages({
   home: { id: 'tabs_bar.home', defaultMessage: 'Home' },
   notifications: { id: 'tabs_bar.notifications', defaultMessage: 'Notifications' },
   explore: { id: 'explore.title', defaultMessage: 'Explore' },
-  local: { id: 'tabs_bar.local_timeline', defaultMessage: 'Local' },
-  federated: { id: 'tabs_bar.federated_timeline', defaultMessage: 'Federated' },
+  firehose: { id: 'column.firehose', defaultMessage: 'Live feeds' },
   direct: { id: 'navigation_bar.direct', defaultMessage: 'Private mentions' },
   favourites: { id: 'navigation_bar.favourites', defaultMessage: 'Favourites' },
   bookmarks: { id: 'navigation_bar.bookmarks', defaultMessage: 'Bookmarks' },
@@ -43,6 +42,10 @@ class NavigationPanel extends Component {
     intl: PropTypes.object.isRequired,
   };
 
+  isFirehoseActive = (match, location) => {
+    return match || location.pathname.startsWith('/public');
+  };
+
   render () {
     const { intl } = this.props;
     const { signedIn, disabledAccountId } = this.context.identity;
@@ -62,17 +65,14 @@ class NavigationPanel extends Component {
           </>
         )}
 
-        {showTrends ? (
+        {trendsEnabled ? (
           <ColumnLink transparent to='/explore' icon='hashtag' text={intl.formatMessage(messages.explore)} />
         ) : (
           <ColumnLink transparent to='/search' icon='search' text={intl.formatMessage(messages.search)} />
         )}
 
         {(signedIn || timelinePreview) && (
-          <>
-            <ColumnLink transparent to='/public/local' icon='users' text={intl.formatMessage(messages.local)} />
-            <ColumnLink transparent exact to='/public' icon='globe' text={intl.formatMessage(messages.federated)} />
-          </>
+          <ColumnLink transparent to='/public/local' isActive={this.isFirehoseActive} icon='globe' text={intl.formatMessage(messages.firehose)} />
         )}
 
         {!signedIn && (
