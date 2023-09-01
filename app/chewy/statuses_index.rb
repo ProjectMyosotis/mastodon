@@ -35,7 +35,6 @@ class StatusesIndex < Chewy::Index
           english_stop
           english_stemmer
         ),
-        tokenizer: 'sudachi_tokenizer',
         type: 'custom',
       },
     },
