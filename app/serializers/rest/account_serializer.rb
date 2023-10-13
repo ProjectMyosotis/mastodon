@@ -5,6 +5,7 @@ class REST::AccountSerializer < ActiveModel::Serializer
   include FormattingHelper
 
   attributes :id, :username, :acct, :display_name, :locked, :bot, :discoverable, :cat, :group, :created_at,
+  # Please update `app/javascript/mastodon/api_types/accounts.ts` when making changes to the attributes
              :note, :url, :uri, :avatar, :avatar_static, :header, :header_static,
              :followers_count, :following_count, :statuses_count, :last_status_at
 
