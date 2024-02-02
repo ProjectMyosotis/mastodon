@@ -29,7 +29,7 @@ class REST::InstanceSerializer < ActiveModel::Serializer
       }
     else
       {
-        url: full_pack_url('media/images/preview.png'),
+        url: frontend_asset_url('images/preview.png'),
       }
     end
   end
@@ -51,6 +51,10 @@ class REST::InstanceSerializer < ActiveModel::Serializer
       urls: {
         streaming: Rails.configuration.x.streaming_api_base_url,
         status: object.status_page_url,
+      },
+
+      vapid: {
+        public_key: Rails.configuration.x.vapid_public_key,
       },
 
       accounts: {
