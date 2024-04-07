@@ -24,7 +24,9 @@ jobs:
           #cache-to: type=gha,mode=max
       - uses: docker/build-push-action@v3
         with:
-          context: ./streaming
+          context: .
+          file: streaming/Dockerfile
+          provenance: false
           push: true
           tags: projectmyosotis/mastodon-streaming:latest
           #cache-from: type=gha
