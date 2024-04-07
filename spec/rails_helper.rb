@@ -21,6 +21,7 @@ require 'paperclip/matchers'
 require 'capybara/rspec'
 require 'chewy/rspec'
 require 'email_spec/rspec'
+require 'test_prof/recipes/rspec/before_all'
 
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
 
@@ -82,6 +83,7 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :view
   config.include Devise::Test::IntegrationHelpers, type: :feature
   config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include ActionMailer::TestHelper
   config.include Paperclip::Shoulda::Matchers
   config.include ActiveSupport::Testing::TimeHelpers
   config.include Chewy::Rspec::Helpers
