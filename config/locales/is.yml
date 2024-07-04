@@ -285,6 +285,7 @@ is:
         update_custom_emoji_html: "%{name} uppfærði tjáningartáknið %{target}"
         update_domain_block_html: "%{name} uppfærði útilokun lénsins %{target}"
         update_ip_block_html: "%{name} breytti reglu fyrir IP-vistfangið %{target}"
+        update_report_html: "%{name} uppfærði kæru %{target}"
         update_status_html: "%{name} uppfærði færslu frá %{target}"
         update_user_role_html: "%{name} breytti hlutverki %{target}"
       deleted_account: eyddur notandaaðgangur
@@ -292,6 +293,7 @@ is:
       filter_by_action: Sía eftir aðgerð
       filter_by_user: Sía eftir notanda
       title: Atvikaskrá
+      unavailable_instance: "(heiti léns ekki tiltækt)"
     announcements:
       destroyed_msg: Það tókst að eyða auglýsingunni!
       edit:
@@ -753,6 +755,7 @@ is:
           Aukinheldur <strong> gæti þetta gert nýskráningarferlið óaðgengilegra sumum (sérstaklega fyrir fatlaða)</strong>. Þess vegna er rétt að skoða aðra valmöguleika svo sem nýskráningar háðar samþykki eða boði.
         title: Nýir notendur munu þurfa að standast Turing skynpróf til að staðfesta notendaaðganginn
       content_retention:
+        danger_zone: Hættusvæði
         preamble: Stýrðu hvernig efni frá notendum sé geymt í Mastodon.
         title: Geymsla efnis
       default_noindex:
@@ -951,7 +954,7 @@ is:
       delete: Eyða
       edit_preset: Breyta forstilltri aðvörun
       empty: Þú hefur ekki enn skilgreint neinar aðvaranaforstillingar.
-      title: Sýsla með forstilltar aðvaranir
+      title: Forstilltar aðvaranir
     webhooks:
       add_new: Bæta við endapunkti
       delete: Eyða
