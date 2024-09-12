@@ -78,7 +78,7 @@ services:
       - ./public/system:/mastodon/public/system
 
   streaming:
-    image: projectmyosotis/mastodon:latest
+    image: projectmyosotis/mastodon-streaming:latest
     #   dockerfile: ./streaming/Dockerfile
     restart: always
     env_file: .env.production
