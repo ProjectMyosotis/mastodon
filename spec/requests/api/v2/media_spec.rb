@@ -21,8 +21,27 @@ RSpec.describe 'Media API', :attachment_processing do
         expect(response)
           .to have_http_status(200)
 
+        expect(response.content_type)
+          .to start_with('application/json')
+
         expect(response.parsed_body)
           .to be_a(Hash)
+      end
+    end
+
+    context 'when media description is too long' do
+      let(:params) do
+        {
+          file: fixture_file_upload('attachment-jpg.123456_abcd', 'image/jpeg'),
+          description: 'aa' * MediaAttachment::MAX_DESCRIPTION_LENGTH,
+        }
+      end
+
+      it 'returns http error' do
+        post '/api/v2/media', headers: headers, params: params
+
+        expect(response).to have_http_status(422)
+        expect(response.body).to include 'Description is too long'
       end
     end
 
@@ -37,6 +56,9 @@ RSpec.describe 'Media API', :attachment_processing do
 
         expect(response)
           .to have_http_status(202)
+
+        expect(response.content_type)
+          .to start_with('application/json')
 
         expect(response.parsed_body)
           .to be_a(Hash)
@@ -63,6 +85,9 @@ RSpec.describe 'Media API', :attachment_processing do
           expect(response)
             .to have_http_status(422)
 
+          expect(response.content_type)
+            .to start_with('application/json')
+
           expect(response.parsed_body)
             .to be_a(Hash)
             .and include(error: /File type/)
@@ -79,6 +104,9 @@ RSpec.describe 'Media API', :attachment_processing do
 
           expect(response)
             .to have_http_status(500)
+
+          expect(response.content_type)
+            .to start_with('application/json')
 
           expect(response.parsed_body)
             .to be_a(Hash)

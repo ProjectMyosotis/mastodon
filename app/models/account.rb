@@ -44,7 +44,6 @@
 #  hide_collections              :boolean
 #  avatar_storage_schema_version :integer
 #  header_storage_schema_version :integer
-#  devices_url                   :string
 #  suspension_origin             :integer
 #  sensitized_at                 :datetime
 #  trendable                     :boolean
@@ -56,25 +55,28 @@
 
 class Account < ApplicationRecord
   self.ignored_columns += %w(
-    subscription_expires_at
-    secret
+    devices_url
+    hub_url
     remote_url
     salmon_url
-    hub_url
+    secret
+    subscription_expires_at
     trust_level
   )
 
   BACKGROUND_REFRESH_INTERVAL = 1.week.freeze
+  REFRESH_DEADLINE = 6.hours
+  STALE_THRESHOLD = 1.day
   DEFAULT_FIELDS_SIZE = 4
   INSTANCE_ACTOR_ID = -99
 
-  USERNAME_RE   = /[a-z0-9_]+([a-z0-9_.-]+[a-z0-9_]+)?/i
-  MENTION_RE    = %r{(?<![=/[:word:]])@((#{USERNAME_RE})(?:@[[:word:].-]+[[:word:]]+)?)}
+  USERNAME_RE   = /[a-z0-9_]+([.-]+[a-z0-9_]+)*/i
+  MENTION_RE    = %r{(?<![=/[:word:]])@((#{USERNAME_RE})(?:@[[:word:]]+([.-]+[[:word:]]+)*)?)}
   URL_PREFIX_RE = %r{\Ahttp(s?)://[^/]+}
   USERNAME_ONLY_RE = /\A#{USERNAME_RE}\z/i
-  USERNAME_LENGTH_LIMIT = 30
-  DISPLAY_NAME_LENGTH_LIMIT = 30
-  NOTE_LENGTH_LIMIT = 500
+  USERNAME_LENGTH_LIMIT = 256
+  DISPLAY_NAME_LENGTH_LIMIT = 256
+  NOTE_LENGTH_LIMIT = 1024
 
   AUTOMATED_ACTOR_TYPES = %w(Application Service).freeze
 
@@ -88,7 +90,9 @@ class Account < ApplicationRecord
   include Account::Interactions
   include Account::Merging
   include Account::Search
+  include Account::Silences
   include Account::StatusesSearch
+  include Account::Suspensions
   include Account::AttributionDomains
   include DomainMaterializable
   include DomainNormalizable
@@ -126,11 +130,7 @@ class Account < ApplicationRecord
   scope :remote, -> { where.not(domain: nil) }
   scope :local, -> { where(domain: nil) }
   scope :partitioned, -> { order(Arel.sql('row_number() over (partition by domain)')) }
-  scope :silenced, -> { where.not(silenced_at: nil) }
-  scope :suspended, -> { where.not(suspended_at: nil) }
   scope :sensitized, -> { where.not(sensitized_at: nil) }
-  scope :without_suspended, -> { where(suspended_at: nil) }
-  scope :without_silenced, -> { where(silenced_at: nil) }
   scope :without_instance_actor, -> { where.not(id: INSTANCE_ACTOR_ID) }
   scope :recent, -> { reorder(id: :desc) }
   scope :bots, -> { where(actor_type: AUTOMATED_ACTOR_TYPES) }
@@ -230,60 +230,17 @@ class Account < ApplicationRecord
   end
 
   def possibly_stale?
-    last_webfingered_at.nil? || last_webfingered_at <= 1.day.ago
+    last_webfingered_at.nil? || last_webfingered_at <= STALE_THRESHOLD.ago
   end
 
   def schedule_refresh_if_stale!
     return unless last_webfingered_at.present? && last_webfingered_at <= BACKGROUND_REFRESH_INTERVAL.ago
 
-    AccountRefreshWorker.perform_in(rand(6.hours.to_i), id)
+    AccountRefreshWorker.perform_in(rand(REFRESH_DEADLINE), id)
   end
 
   def refresh!
     ResolveAccountService.new.call(acct) unless local?
-  end
-
-  def silenced?
-    silenced_at.present?
-  end
-
-  def silence!(date = Time.now.utc)
-    update!(silenced_at: date)
-  end
-
-  def unsilence!
-    update!(silenced_at: nil)
-  end
-
-  def suspended?
-    suspended_at.present? && !instance_actor?
-  end
-
-  def suspended_permanently?
-    suspended? && deletion_request.nil?
-  end
-
-  def suspended_temporarily?
-    suspended? && deletion_request.present?
-  end
-
-  alias unavailable? suspended?
-  alias permanently_unavailable? suspended_permanently?
-
-  def suspend!(date: Time.now.utc, origin: :local, block_email: true)
-    transaction do
-      create_deletion_request!
-      update!(suspended_at: date, suspension_origin: origin)
-      create_canonical_email_block! if block_email
-    end
-  end
-
-  def unsuspend!
-    transaction do
-      deletion_request&.destroy!
-      update!(suspended_at: nil, suspension_origin: nil)
-      destroy_canonical_email_block!
-    end
   end
 
   def sensitized?
