@@ -80,6 +80,8 @@ services:
   streaming:
     image: projectmyosotis/mastodon-streaming:latest
     #   dockerfile: ./streaming/Dockerfile
+    #   context: .
+    #image: ghcr.io/mastodon/mastodon-streaming:v4.3.2
     restart: always
     env_file: .env.production
     command: node ./streaming/index.js
