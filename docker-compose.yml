@@ -1,5 +1,5 @@
 # This file is designed for production server deployment, not local development work
-# For a containerized local dev environment, see: https://github.com/mastodon/mastodon/blob/main/README.md#docker
+# For a containerized local dev environment, see: https://github.com/mastodon/mastodon/blob/main/docs/DEVELOPMENT.md#docker
 
 services:
 
@@ -81,7 +81,7 @@ services:
     image: projectmyosotis/mastodon-streaming:latest
     #   dockerfile: ./streaming/Dockerfile
     #   context: .
-    #image: ghcr.io/mastodon/mastodon-streaming:v4.3.2
+    image: ghcr.io/mastodon/mastodon-streaming:v4.3.2
     restart: always
     env_file: .env.production
     command: node ./streaming/index.js
@@ -98,7 +98,8 @@ services:
       - redis
 
   sidekiq:
-    image: projectmyosotis/mastodon:latest
+    build: .
+    image: ghcr.io/mastodon/mastodon:v4.3.2
     restart: always
     env_file: .env.production
     command: bundle exec sidekiq -c 80
