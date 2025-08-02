@@ -45,13 +45,15 @@ class EmojiFormatter
         i += 1
 
         if inside_shortname && text[i] == ':'
-          inside_shortname = false
-          shortcode = text[shortname_start_index + 1..i - 1]
+          # https://github.com/rubocop/rubocop/issues/14383
+          # False positive in line below, remove disable when resolved
+          inside_shortname = false # rubocop:disable Lint/UselessAssignment
+          shortcode = text[(shortname_start_index + 1)..(i - 1)]
           char_after = text[i + 1]
 
           next unless (char_after.nil? || !DISALLOWED_BOUNDING_REGEX.match?(char_after)) && (emoji = emoji_map[shortcode])
 
-          result << tree.document.create_text_node(text[last_index..shortname_start_index - 1]) if shortname_start_index.positive?
+          result << tree.document.create_text_node(text[last_index..(shortname_start_index - 1)]) if shortname_start_index.positive?
           result << tree.document.fragment(tag_for_emoji(shortcode, emoji))
 
           last_index = i + 1
