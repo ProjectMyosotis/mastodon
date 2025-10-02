@@ -230,7 +230,7 @@ ca:
         setting_auto_play_gif: Reprodueix automàticament els GIF animats
         setting_boost_modal: Mostra la finestra de confirmació abans d'impulsar
         setting_default_language: Llengua dels tuts
-        setting_default_privacy: Privacitat dels tuts
+        setting_default_privacy: Visibilitat de la publicació
         setting_default_quote_policy: Qui pot citar
         setting_default_sensitive: Marcar sempre el contingut gràfic com a sensible
         setting_delete_modal: Mostra la finestra de confirmació abans d'esborrar un tut
@@ -323,6 +323,7 @@ ca:
         follow_request: Algú sol·licita seguir-te
         mention: Algú et menciona
         pending_account: Un nou compte necessita revisió
+        quote: Algú us ha citat
         reblog: Algú comparteix el teu estat
         report: S'ha enviat l'informe nou
         software_updates:

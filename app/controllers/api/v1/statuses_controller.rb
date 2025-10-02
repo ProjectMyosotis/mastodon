@@ -3,6 +3,7 @@
 class Api::V1::StatusesController < Api::BaseController
   include Authorization
   include AsyncRefreshesConcern
+  include Api::InteractionPoliciesConcern
 
   before_action -> { authorize_if_got_token! :read, :'read:statuses' }, except: [:create, :update, :destroy]
   before_action -> { doorkeeper_authorize! :write, :'write:statuses' }, only:   [:create, :update, :destroy]
@@ -82,6 +83,7 @@ class Api::V1::StatusesController < Api::BaseController
       text: status_params[:status],
       thread: @thread,
       quoted_status: @quoted_status,
+      quote_approval_policy: quote_approval_policy,
       media_ids: status_params[:media_ids],
       sensitive: status_params[:sensitive],
       spoiler_text: status_params[:spoiler_text],
@@ -113,7 +115,8 @@ class Api::V1::StatusesController < Api::BaseController
       sensitive: status_params[:sensitive],
       language: status_params[:language],
       spoiler_text: status_params[:spoiler_text],
-      poll: status_params[:poll]
+      poll: status_params[:poll],
+      quote_approval_policy: quote_approval_policy
     )
 
     render json: @status, serializer: REST::StatusSerializer
@@ -154,8 +157,6 @@ class Api::V1::StatusesController < Api::BaseController
   end
 
   def set_quoted_status
-    return unless Mastodon::Feature.outgoing_quotes_enabled?
-
     @quoted_status = Status.find(status_params[:quoted_status_id]) if status_params[:quoted_status_id].present?
     authorize(@quoted_status, :quote?) if @quoted_status.present?
   rescue ActiveRecord::RecordNotFound, Mastodon::NotPermittedError
@@ -180,6 +181,7 @@ class Api::V1::StatusesController < Api::BaseController
       :status,
       :in_reply_to_id,
       :quoted_status_id,
+      :quote_approval_policy,
       :sensitive,
       :spoiler_text,
       :visibility,
