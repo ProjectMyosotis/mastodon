@@ -1,12 +1,11 @@
 module.exports = {
-  extends: ['stylelint-config-standard-scss', 'stylelint-config-prettier-scss'],
+  extends: ['stylelint-config-standard-scss'],
   ignoreFiles: [
     'app/javascript/styles/mastodon/reset.scss',
     'coverage/**/*',
     'node_modules/**/*',
     'public/assets/**/*',
-    'public/packs/**/*',
-    'public/packs-test/**/*',
+    'public/packs*/**/*',
     'vendor/**/*',
   ],
   reportDescriptionlessDisables: true,
@@ -36,20 +35,29 @@ module.exports = {
         'property-no-unknown': [
           true,
           {
-            ignoreProperties: [
-              '/^mso-/',
-            ] },
+            ignoreProperties: ['/^mso-/'],
+          },
         ],
       },
     },
     {
-      files: ['app/javascript/**/*.module.scss'],
+      files: [
+        'app/javascript/**/*.module.scss',
+        'app/javascript/**/*.module.css',
+      ],
       rules: {
         'selector-pseudo-class-no-unknown': [
           true,
           { ignorePseudoClasses: ['global'] },
-        ]
-      }
+        ],
+
+        'property-no-unknown': [
+          true,
+          {
+            ignoreProperties: ['composes'],
+          },
+        ],
+      },
     },
   ],
 };

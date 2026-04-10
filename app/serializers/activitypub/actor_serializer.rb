@@ -4,21 +4,25 @@ class ActivityPub::ActorSerializer < ActivityPub::Serializer
   include RoutingHelper
   include FormattingHelper
 
-  context :security
+  context :security, :webfinger
 
   context_extensions :manually_approves_followers, :featured, :also_known_as,
                      :moved_to, :property_value, :discoverable, :suspended,
-                     :memorial, :indexable, :attribution_domains
+                     :memorial, :indexable, :attribution_domains, :profile_settings
 
   context_extensions :interaction_policies if Mastodon::Feature.collections_enabled?
 
-  attributes :id, :type, :following, :followers,
+  attributes :id, :webfinger, :type, :following, :followers,
              :inbox, :outbox, :featured, :featured_tags,
              :preferred_username, :name, :summary,
              :url, :manually_approves_followers, :is_cat,
-             :discoverable, :indexable, :published, :memorial
+             :discoverable, :indexable, :published, :memorial,
+             :show_featured, :show_media
+
+  attribute :show_media_replies, key: :show_replies_in_media
 
   attribute :interaction_policy, if: -> { Mastodon::Feature.collections_enabled? }
+  attribute :featured_collections, if: -> { Mastodon::Feature.collections_enabled? }
 
   has_one :public_key, serializer: ActivityPub::PublicKeySerializer
 
@@ -49,6 +53,10 @@ class ActivityPub::ActorSerializer < ActivityPub::Serializer
 
   def id
     ActivityPub::TagManager.instance.uri_for(object)
+  end
+
+  def webfinger
+    object.local_username_and_domain
   end
 
   def type
@@ -179,6 +187,12 @@ class ActivityPub::ActorSerializer < ActivityPub::Serializer
         automaticApproval: [uri],
       },
     }
+  end
+
+  def featured_collections
+    return nil if instance_actor?
+
+    ap_account_featured_collections_url(object.id)
   end
 
   class CustomEmojiSerializer < ActivityPub::EmojiSerializer
