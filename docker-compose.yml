@@ -30,8 +30,8 @@ services:
   #   restart: always
   #   image: docker.elastic.co/elasticsearch/elasticsearch:8.19.15
   #   environment:
-  #     - "ELASTIC_PASSWORD=password"  #Username is elastic. Do not change the username.
-  #     - "ES_JAVA_OPTS=-Xms512m -Xmx512m -Des.enforce.bootstrap.checks=true"
+  #     - "ELASTIC_PASSWORD=password" # Username is elastic. Do not change the username.
+  #     - "ES_JAVA_OPTS=-Xms512m -Xmx512m -Des.enforce.bootstrap.checks=true" # Please update the memory to suit your environment or you will have wasted memory. both -Xms & -Xmx must be the same size. 1g for GB.
   #     - "xpack.license.self_generated.type=basic"
   #     - "xpack.security.enabled=false"
   #     - "xpack.watcher.enabled=false"
@@ -40,7 +40,6 @@ services:
   #     - "bootstrap.memory_lock=true"
   #     - "cluster.name=es-mastodon"
   #     - "discovery.type=single-node"
-  #     - "thread_pool.write.queue_size=1000"
   #   networks:
   #      - external_network
   #      - internal_network
@@ -79,9 +78,9 @@ services:
       - ./public/system:/mastodon/public/system
 
   streaming:
-    image: projectmyosotis/mastodon-streaming:latest
     #   dockerfile: ./streaming/Dockerfile
     #   context: .
+    image: projectmyosotis/mastodon-streaming:latest
     restart: always
     env_file: .env.production
     command: node ./streaming/index.js
